@@ -13,12 +13,16 @@ if not already installed. Otherwise run `xcode-select --install`.
 
 ## Bootstrap Machine
 
-First, make sure you have enabled admin privileges in Rippling.
+#### 1. First, make sure you have enabled admin privileges in Rippling
+<img width="601" alt="rippling-admin" src="https://github.com/pgumeson-fabric/dotfiles/assets/145386658/c88c3244-1c34-412d-84bf-8c6d51631a41">
 
-Then run the following command to install `chezmoi` and boostrap your machine.
+#### 2. Then run the following command to install `chezmoi` and boostrap your machine.
 
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply pgumeson-fabric
 ```
 
-## That's It!
+**That's it!**
+
+## Everyday Use
+Coming soon
