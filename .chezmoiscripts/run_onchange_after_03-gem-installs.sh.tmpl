@@ -1,0 +1,16 @@
+#! /usr/bin/env zsh
+
+{{ template "load_zfunctions.zsh" }}
+_printers
+_print_running_script "$0"
+
+set -euo pipefail
+
+## Gemfile: {{ include "Gemfile.tmpl" | sha256sum }}
+
+# Install default gems
+asdf exec bundle -v &> /dev/null
+if [ $? -eq 0 ]; then
+  _print_installing "default gems for $(asdf exec ruby -v)"
+  asdf exec bundle install --gemfile="$HOME/Gemfile"
+fi

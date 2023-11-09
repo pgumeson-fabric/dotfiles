@@ -1,0 +1,25 @@
+#! /usr/bin/env zsh
+
+{{ template "load_zfunctions.zsh" }}
+_printers
+_print_running_script "$0"
+
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" }}
+
+{{ else if eq .chezmoi.os "darwin" }}
+
+  # fix ruby linking issue for osx system ruby
+  if [ -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk ]; then
+    if [ ! -L /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Users ]; then
+      _print_symlinking "/Users" "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Users"
+      sudo -p "OSX password for %p:" ln -s /Users /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Users
+    fi
+  fi
+
+  # Keep kitty in dock
+  keep_in_dock "kitty"
+  killall Dock &> /dev/null
+
+{{ end }}

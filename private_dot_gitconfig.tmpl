@@ -1,0 +1,186 @@
+[user]
+  name = "{{ .full_name }}"
+  email = "{{ .git_email }}"
+  # signingkey =
+
+# [include]
+#   path = ~/.config/git/gpg.conf
+
+[gpg]
+  format = ssh
+
+# [gpg "ssh"]
+#   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[credential]
+  helper = osxkeychain
+
+[credential "https://github.com"]
+  helper =
+  helper = !{{ .homebrew_prefix }}/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !{{ .homebrew_prefix }}/bin/gh auth git-credential
+
+[alias]
+  branch-name = rev-parse --abbrev-ref HEAD
+  tracking-name = !git config --get branch.$(git branch-name).remote || echo origin
+  branch-diff = diff main...HEAD
+  co = checkout
+  cp = cherry-pick --signoff
+  st = status
+
+  # Logging
+  lg = log --graph --pretty=formatshort
+  lgs = log --graph --pretty=formatshort
+  lgm = log --graph --pretty=formatmedium
+  lgl = log --graph --pretty=formatlong
+  stats = log --stat --abbrev-commit
+  authors = shortlog --summary --numbered  # List contributors
+
+  # Reset
+  unstage = reset HEAD --          # Mixed reset (affects HEAD and Index)
+  uncommit = reset --soft HEAD~1       # Undo last commit (affects HEAD only)
+  hreset = reset --hard HEAD~1       # Remove last commit (from HEAD, Index and Working Dir)
+
+  # Remote
+  remotes = remote -v
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Find commits by commit message
+  commit-search = "!f() { \
+    git log --pretty=formatmedium --decorate --grep=\"$1\"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  # Find commits by source code
+  code-search = "!f() { \
+    git log --pretty=formatmedium -S\"$1\"; \
+  }; f"
+
+[core]
+  abbrev = 12
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  mergeoptions = --no-edit
+
+[init]
+	defaultBranch = main
+
+[color]
+  ui = always
+
+[color "branch"]
+  current = green bold
+  local = green
+  remote = yellow
+
+[color "diff"]
+  frag = white reverse
+  meta = dim white
+  new = green
+  old = red
+  whitespace = red reverse
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+
+[color "status"]
+  added = green reverse
+  changed = yellow reverse
+  untracked = bold red reverse
+
+[pretty]
+  formatshort = "%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)"
+  formatmedium = "%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n         %C(white)%s%C(reset) %C(dim white)- %an%C(reset)"
+  formatlong = "%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n         %C(white)%s%C(reset)%n         %C(dim white)%an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)"
+
+[format]
+  pretty = %C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)
+    #                    │                            │                      │                          └─ author name
+    #                    │                            │                      └─ message
+    #                    │                            └─ date (relative)
+    #                    │
+    #                    └─ hash (abbreviated)
+
+[apply]
+  # Cleanup whitespace by default when apply patches.
+  # whitespace = fix
+
+[fetch]
+  # Always prune when fetching (and pulling).
+  prune = 1
+
+[push]
+  # Push to the set upstream branch being tracked by default.
+  default = simple
+
+  # Or push to any branch with the same name
+  # http://stackoverflow.com/a/23918418/89484
+  # followTags = true
+  # default = current
+
+[commit]
+  # Show the diff as a comment in the commit message template.
+  # gpgsign = true
+  verbose = true
+
+[rebase]
+  # Run `git stash` if needed before a `git rebase`
+  # autoStash = true
+
+  # Auto-add `--autosquash` to `git rebase`
+  # autoSquash = true
+
+[diff]
+  tool = vscode
+
+  # Use the slower but better patience diff algorithm
+  algorithm = patience
+
+  # Use new diff algorithm to make e.g. function diffs look better.
+  compactionheuristic = true
+
+[diff "bin"]
+  # Use `hexdump` to diff binary files
+  textconv = hexdump -v -C
+
+[diff "xml"]
+  textconv = xmllint --format --recover
+
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+  tool = vscode
+
+[mergetool]
+  # Don't prompt before opening the merge tool.
+  prompt = false
+
+  # Don't keep backups of the merge tool inputs.
+  keepBackup = false
+
+  # Don't keep the merge tool temporary input/output files.
+  keepTemporaries = false
+
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+
+[help]
+  # Autocorrect mistyped commands.
+  autocorrect = 1
+
+[github]
+  user = "{{ .github_user }}"
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[log]
+	date = iso

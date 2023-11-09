@@ -1,0 +1,14 @@
+#! /usr/bin/env zsh
+
+FG_YELLOW=$(tput setaf 3)
+FG_BLUE=$(tput setaf 4)
+RESET=$(tput sgr0)
+
+echo -e "\n${FG_YELLOW}[running script]${RESET} $0\n"
+
+set -euo pipefail
+
+# Kitty
+echo -e "kitty"
+echo -e "\n${FG_BLUE}[installing]${RESET} kitty\n"
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin

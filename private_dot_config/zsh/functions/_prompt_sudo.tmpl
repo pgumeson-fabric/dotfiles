@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+function _prompt_sudo() {
+  sudo -k
+  if sudo -p "OS X Password for %p: " true; then
+    # Update existing sudo timestamp until .macos has finished
+    # while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2> /dev/null &
+  else
+    exit -1
+  fi
+}
+_prompt_sudo "$@"

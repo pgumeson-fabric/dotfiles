@@ -1,0 +1,8 @@
+install.sh
+.DS_Store
+lib
+
+{{ if ne .chezmoi.os "darwin" }}
+private_dot_config/zsh/functions/keep_in_dock.tmpl
+Library/Application Support/Code/User/settings.json
+{{ end }}

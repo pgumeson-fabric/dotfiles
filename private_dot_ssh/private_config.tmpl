@@ -1,0 +1,17 @@
+# Do not add your own configs to this file!
+# Instead add new files to the ~/configs.d directory
+# which will all get included by this file.
+# E.g. ~/.ssh/config.d/config.local
+
+Include config.d/*
+
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  # SetEnv TERM=xterm
+
+Host github.com
+  hostname github.com
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/{{ .github_user }}_ed25519
+  User {{ .github_user }}

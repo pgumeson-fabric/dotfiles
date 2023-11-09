@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{ .chezmoi.homeDir }}/.local/kitty.app/bin/kitten
+{{- else if eq .chezmoi.os "darwin" -}}
+/Applications/kitty.app/Contents/MacOS/kitten
+{{- end -}}

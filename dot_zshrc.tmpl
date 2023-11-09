@@ -1,0 +1,96 @@
+{{ template "load_zfunctions.zsh" }}
+
+typeset -U path PATH
+
+export SHELL="/bin/zsh"
+export EDITOR="{{ .editor }}"
+export VISUAL="{{ .visual }} --wait"
+export GIT_EDITOR="{{ .editor }}"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+# setopt EXTENDED_HISTORY # Not needed with SHARE_HISTORY
+# setopt INC_APPEND_HISTORY # Not needed with SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+# setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+
+setopt NO_LIST_BEEP
+setopt CORRECT
+setopt IGNORE_EOF
+# setopt COMPLETE_IN_WORD
+
+# homebrew
+if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+  eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
+fi
+
+# fish(y)
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# navigation
+source $HOMEBREW_PREFIX/etc/profile.d/z.sh
+
+{{ if eq .chezmoi.os "darwin" }}
+  # xcode
+  export SDKROOT="$(xcrun --show-sdk-path)"
+{{ end }}
+
+# java
+export JAVA_HOME="$HOME/.local"
+
+# asdf
+if [ -f "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh" ]; then
+  source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+  source $HOME/.config/asdf/hooks.zsh
+fi
+
+# pkgx shell integration
+# https://docs.pkgx.sh/using-pkgx/shell-integration
+if command -v pkgx &> /dev/null; then
+  source <(pkgx --shellcode)
+fi
+
+# direnv (pkgx provides this functionality)
+if command -v direnv &> /dev/null; then
+  export DIRENV_LOG_FORMAT=""
+  eval "$(direnv hook zsh)"
+fi
+
+path[1,0]="/usr/local/bin"
+path[1,0]="$HOME/.local/bin"
+path[1,0]="$HOME/bin"
+
+# fzf
+source $HOME/.config/fzf/key-bindings.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!doc/*"'
+
+# ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
+
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+
+# use nvim for man
+export MANPAGER="nvim +Man!"
+
+# neovim
+alias vi=nvim
+alias vim=nvim
+alias tree='et'
+
+# ls
+alias la="lsd -la"
+alias ll="lsd -1"
+alias ls="lsd -1"

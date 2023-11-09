@@ -1,0 +1,38 @@
+#! /usr/bin/env zsh
+
+{{ template "load_zfunctions.zsh" }}
+_printers
+_print_running_script "$0"
+
+set +euo pipefail
+
+## Brewfile: {{ include "Brewfile.tmpl" | sha256sum }}
+
+if [ ! -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+  _print_installing "homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  _print_exists "homebrew"
+fi
+
+if ! command -v brew &> /dev/null; then
+  eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
+fi
+
+echo
+_print_lib homebrew "updating..."
+brew update
+
+echo
+_print_lib homebrew "bundling..."
+brew bundle --file="$HOME/Brewfile"
+
+echo
+_print_lib homebrew "removing unused dependencies..."
+brew autoremove
+
+
+keep_in_dock "Figma"
+keep_in_dock "Visual Studio Code"
+keep_in_dock "Zed"
+killall Dock &> /dev/null

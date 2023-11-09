@@ -1,0 +1,93 @@
+{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
+{{- $interactive := stdinIsATTY -}}
+
+{{- if $interactive -}}
+{{-   writeToStdout "💡 Tip: to re-enter these values, run `chezmoi init --data=false`\n\n" -}}
+{{- end -}}
+
+{{- /* full_name */ -}}
+{{- $full_name := "" -}}
+{{- if hasKey . "full_name" -}}
+{{-   $full_name = .full_name -}}
+{{- else if $interactive -}}
+{{-   $full_name = promptString "Your full name" -}}
+{{- end -}}
+
+{{- /* email */ -}}
+{{- $email := "" -}}
+{{- if hasKey . "email" -}}
+{{-   $email = .email -}}
+{{- else if $interactive -}}
+{{-   $email = promptString "Your @florenceos email" -}}
+{{- end -}}
+
+{{- /* git_email */ -}}
+{{- $git_email := $email -}}
+{{- if hasKey . "git_email" -}}
+{{-   $git_email = .git_email -}}
+{{- else if $interactive -}}
+{{-   $git_email = promptString "Your email (for git commits)" $git_email -}}
+{{- end -}}
+
+{{- /* github_user */ -}}
+{{- $github_user := "" -}}
+{{- if hasKey . "github_user" -}}
+{{-   $github_user = .github_user -}}
+{{- else if $interactive -}}
+{{-   $github_user = promptString "Your github username" -}}
+{{- end -}}
+
+{{- /* editor */ -}}
+{{- $choices := list "code" "emacs" "nvim" "zed" "other" -}}
+{{- $editor := "zed" -}}
+{{- if hasKey . "editor" -}}
+{{-   $editor = .editor -}}
+{{- else if $interactive -}}
+{{-   $editor = promptChoice "Your text editor for git commits" $choices $editor -}}
+{{-   if eq $editor "other" -}}
+{{-     $editor = promptString "Other Editor" -}}
+{{-   end -}}
+{{- end -}}
+
+{{- /* visual */ -}}
+{{- $choices := list "code" "emacs" "nvim" "rubymine" "zed" "other"  -}}
+{{- $visual := "code" -}}
+{{- if hasKey . "visual" -}}
+{{-   $visual = .visual -}}
+{{- else if $interactive -}}
+{{-   $visual = promptChoice "Your visual editor (IDE)" $choices $visual -}}
+{{-   if eq $visual "other" -}}
+{{-     $visual = promptString "Other visual editor (IDE)" -}}
+{{-   end -}}
+{{- end -}}
+
+{{- /* vscode.vim_mode */ -}}
+{{- $vim_mode := false -}}
+{{- if dig "vscode" "vim_mode" false . -}}
+{{-   $vim_mode = .vscode.vim_mode -}}
+{{- else if $interactive -}}
+{{-   $vim_mode = promptBool "Use VIM mode in vscode" $vim_mode -}}
+{{- end -}}
+
+{{- /* homebrew_prefix */ -}}
+{{- $homebrew_prefix := "" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   $homebrew_prefix = "/home/linuxbrew/.linuxbrew" -}}
+{{- else if eq .chezmoi.os "darwin" -}}
+{{-   if eq .chezmoi.arch "x86_64" -}}
+{{-     $homebrew_prefix = "/usr/local" -}}
+{{-   else -}}
+{{-     $homebrew_prefix = "/opt/homebrew" -}}
+{{-   end -}}
+{{- end -}}
+
+[data]
+  full_name = "{{ $full_name }}"
+  email = "{{ $email }}"
+  git_email = "{{ $git_email }}"
+  github_user = "{{ $github_user }}"
+  editor = "{{ $editor }}"
+  visual = "{{ $visual }}"
+  homebrew_prefix = "{{ $homebrew_prefix }}"
+  [data.vscode]
+    vim_mode = "{{ $vim_mode }}"

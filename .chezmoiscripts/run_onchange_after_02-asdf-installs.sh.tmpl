@@ -1,0 +1,19 @@
+#! /usr/bin/env zsh
+
+{{ template "load_zfunctions.zsh" }}
+_printers
+_print_running_script "$0"
+
+set +euo pipefail
+
+## .tool-versions: {{ include "dot_tool-versions" | sha256sum }}
+
+if [ -f "$HOME/.tool-versions" ]; then
+  if [ -f "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh" ]; then
+    if [ -z "$ASDF_DIR" ]; then
+      source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+    fi
+
+    {{ template "asdf_install.zsh" dict "dir" "$HOME" }}
+  fi
+fi

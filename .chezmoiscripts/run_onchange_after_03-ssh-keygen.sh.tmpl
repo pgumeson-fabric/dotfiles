@@ -1,0 +1,66 @@
+#!/usr/bin/env zsh
+
+{{ template "load_zfunctions.zsh" }}
+_printers
+_print_running_script "$0"
+
+set +euo pipefail
+
+local resp=
+local ssh_key_file="$HOME/.ssh/{{ .github_user }}_ed25519"
+
+until [[ -f "$ssh_key_file" ]]; do
+  echo
+  _print_info "Let's generate your SSH keypair and upload it to GitHub."
+  ssh-keygen -t ed25519 -f "$ssh_key_file" -C "{{ .git_email }}"
+  if [ $? -eq 0 ]; then
+    echo
+    chmod 600 "$ssh_key_file"
+    chmod 644 "$ssh_key_file.pub"
+    _print_ok "generated $ssh_key_file"
+  else
+    echo
+    _print_error "Oops, something went wrong."
+    _prompt -p "Try again? [Y|n] " -d "Y" resp
+    if [[ $resp =~ ^(n|no|N) ]]; then
+      _print_skipping "You will need to generate your SSH keypair later."
+      exit 1
+    fi
+  fi
+done
+
+while true; do
+  resp=$(gh auth status 2>&1)
+  if [ $? -eq 0 ]; then
+    if [[ "$resp" =~ "Logged in to github.com as {{ .github_user }} " ]]; then
+      _print_ok "Logged into github as ${FG_CYAN}{{ .github_user }}${RESET}!"
+      break
+    else
+      _print_warning "You're logged into github, but not as ${FG_CYAN}{{ .github_user }}${RESET}}."
+      _print_lib github "Logging you out"
+      gh auth logout
+      echo
+    fi
+  fi
+
+  _print_lib github "Logging you into GitHub"
+  _print_notice "During the browser confirmation step, make sure you login"
+  _print_notice "using your ${FG_CYAN}{{ .github_user }}${RESET} username!"
+
+  echo
+  gh auth login -h github.com -p ssh -s write:public_key -w # -s admin:public_key
+  resp=$(gh auth status 2>&1)
+  echo
+  if ! [[ "$resp" =~ "Logged in to github.com as {{ .github_user }} " ]]; then
+    _print_error "Oops, something went wrong."
+    _prompt -p "Try again? [Y|n] " -d "Y" resp
+    if [[ $resp =~ ^(n|no|N) ]]; then
+      _print_skipping "You will need to uplodad your SSH private key later."
+      exit 1
+    fi
+  fi
+done
+
+_print_lib github "Uploading your pubilc key"
+local key_title="dotfiles {{ .chezmoi.fqdnHostname }}"
+gh ssh-key add "$ssh_key_file.pub" --type authentication --title "$key_title"
