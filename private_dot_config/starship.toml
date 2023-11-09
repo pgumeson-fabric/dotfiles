@@ -1,41 +1,15 @@
 command_timeout = 1500
 
-#format = """
-#[╭─user───❯](bold blue) $username
-#[┣─system─❯](bold yellow) $hostname
-#[┣─project❯](bold red) $directory$rust$git_branch$git_state$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs
-#[╰─cmd────❯](bold green)
-#"""
-
-# [username]
-# style_user = "green bold"
-# style_root = "red bold"
-# format = "[$user]($style) "
-# disabled = false
-# show_always = true
-
-# [hostname]
-# ssh_only = false
-# format = 'on [$hostname](bold purple) '
-# trim_at = "."
-# disabled = false
-
-# Replace the "❯" symbol in the prompt with "➜"
-# [character]                            # The name of the module we are configuring is "character"
-# success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-# error_symbol = "[✗](bold red)"
-
 [directory]
 truncation_length = 10
 truncate_to_repo = true # truncates directory to root folder if in github repo
 truncation_symbol = "…/"
-# style = "bold italic blue"
 
 [cmd_duration]
 min_time = 4
 show_milliseconds = false
 disabled = false
-style = "bold italic red"
+# style = "bold italic red"
 
 [docker_context]
 format = "via [$symbol$context]($style) "
@@ -67,12 +41,7 @@ bisect = "bisect"
 am = "am"
 am_or_rebase = "am/rebase"
 
-[haskell]
-symbol = "λ "
-
 [python]
-# symbol = "🐍 "
-#pyenv_version_name = true
 format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
 style = "bold yellow"
 pyenv_prefix = "venv "
@@ -81,7 +50,6 @@ detect_extensions = ["py"]
 version_format = "v${raw}"
 
 [nodejs]
-symbol = " "
-format = "via [$symbol Node.js $version](bold green) "
+format = "via [${symbol}Node $version](bold green) "
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
