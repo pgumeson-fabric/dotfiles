@@ -1,6 +1,6 @@
-install.sh
 .DS_Store
-lib
+README.md
+LICENSE
 
 {{ if ne .chezmoi.os "darwin" }}
 private_dot_config/zsh/functions/keep_in_dock.tmpl
