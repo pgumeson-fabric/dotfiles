@@ -12,7 +12,8 @@ if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
 fi
 
 local resp=
-local ssh_key_file="$HOME/.ssh/{{ .github_user }}_ed25519"
+local ssh_key_name="{{ .github_user }}_ed25519"
+local ssh_key_file="$HOME/.ssh/$ssh_key_name"
 
 until [[ -f "$ssh_key_file" ]]; do
   echo
@@ -28,7 +29,7 @@ until [[ -f "$ssh_key_file" ]]; do
     _print_error "Oops, something went wrong."
     _prompt -p "Try again? [Y|n] " -d "Y" resp
     if [[ $resp =~ ^(n|no|N) ]]; then
-      _print_skipping "You will need to generate your SSH keypair later."
+      _print_skipping "Run ${BOLD}chezmoi apply${RESET} to generate your SSH keypair later."
       exit 1
     fi
   fi
@@ -60,12 +61,20 @@ while true; do
     _print_error "Oops, something went wrong."
     _prompt -p "Try again? [Y|n] " -d "Y" resp
     if [[ $resp =~ ^(n|no|N) ]]; then
-      _print_skipping "You will need to uplodad your SSH private key later."
+      _print_skipping "Run ${BOLD}chezmoi apply${RESET} to upload your private key later."
       exit 1
     fi
   fi
 done
 
-_print_lib github "Uploading your pubilc key"
-local key_title="dotfiles {{ .chezmoi.fqdnHostname }}"
+local key_title=
+{{ if eq .chezmoi.os "darwin" }}
+key_title=$(networksetup -getcomputername)
+{{ end }}
+key_title="${key_title:-{{ .chezmoi.fqdnHostname }}}"
+key_title="${ssh_key_name}.pub (${key_title})"
+_print_lib github "Uploading public key: $key_title"
 gh ssh-key add "$ssh_key_file.pub" --type authentication --title "$key_title"
+
+echo
+_print_ok
