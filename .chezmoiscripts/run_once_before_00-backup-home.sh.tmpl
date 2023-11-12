@@ -1,0 +1,104 @@
+#! /usr/bin/env zsh
+
+{{ template "printers.zsh" }}
+{{ template "prompt.zsh" }}
+
+_print_running_script "$0"
+
+set +euo pipefail
+
+local backup_dir=".dotfilebackups"
+local backup_file="dotfiles_$(date +%Y%m%d_%H%M%S%Z).tar.gz"
+local managed="
+.asdfrc
+.bashrc
+.bundle
+.config/Code
+.config/asdf
+.config/cbfmt
+.config/fzf
+.config/gh
+.config/iterm2/AppSupport
+.config/kitty
+.config/nvim
+.config/pgcli
+.config/ranger
+.config/ripgrep
+.config/starship.toml
+.config/stylua.toml
+.config/vis
+.config/zed
+.config/zsh
+.ctags
+.gitconfig
+.irbrc
+.ssh/config
+.tool-versions
+.zshrc
+Brewfile
+Brewfile.lock.json
+Gemfile
+Gemfile.lock
+Library/Application Support/Code/User/settings.json
+.asdf
+.pkgx
+.gem
+"
+
+cd $HOME
+
+if [[ ! -d "$backup_dir" ]]; then
+  mkdir "$backup_dir"
+fi
+
+_print_info "Since this is the first chezmoi run, we're going to back up all the"
+_print_info "files in your home directory that would get overwritten into:"
+_print_info "~/$backup_dir/$backup_file"
+
+echo
+local files=()
+while read item; do
+  if [ -e "$item" ]; then
+    _print_item "$HOME/$item"
+    files+=("$item")
+  fi
+done <<<"$managed"
+
+echo
+_print_danger "The above files and directories will be overwritten!"
+_print_danger "Only choose ${BOLD}NO${RESET} if you are sure they were already"
+_print_danger "backed up, or you no longer need them."
+echo
+_prompt -p "Backup now? [Y|n] " -d "Y" response
+if [[ $response =~ ^(y|yes|Y) ]]; then
+  echo
+  _print_running "tar czvf $backup_dir/$backup_file"
+  tar czvf "$backup_dir/$backup_file" "${files[@]}"
+  touch "$backup_dir/$backup_file"
+  if [[ $? -ne 0 || ! -f "./$backup_dir/$backup_file" ]]; then
+    _print_error "Oops, something went wrong. Aborting"
+    cd -
+    exit 1
+  fi
+  _print_ok "backup successful!"
+  echo
+  _print_info "You can restore from backup by running"
+  _print_cmd "cd ~"
+  _print_cmd "tar xzvf $backup_dir/$backup_file"
+  echo
+  _prompt -c
+else
+  _print_skipping "backup"
+fi
+
+echo
+_print_running "cleaning up for initial run..."
+rm -rf ${files[@]}
+if [ $? -ne 0 ]; then
+  _print_error "Oops, something went wrong. Aborting"
+  cd -
+  exit 1
+fi
+
+cd -
+_print_ok "done"

@@ -67,7 +67,7 @@ while IFS= read -r line; do
           [[ "$(command -v dev)" = "dev" ]] && dev
         fi
       else
-        _print_warning "No compatible version found for $plugin $version"
+        _print_warn "No compatible version found for $plugin $version"
       fi
     else
       _print_lib asdf  "$plugin $version already installed"

@@ -1,10 +1,15 @@
 #!/usr/bin/env zsh
 
-{{ template "load_zfunctions.zsh" }}
-_printers
+{{ template "printers.zsh" }}
+{{ template "prompt.zsh" }}
+
 _print_running_script "$0"
 
 set +euo pipefail
+
+if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+  eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
+fi
 
 local resp=
 local ssh_key_file="$HOME/.ssh/{{ .github_user }}_ed25519"
@@ -36,7 +41,7 @@ while true; do
       _print_ok "Logged into github as ${FG_CYAN}{{ .github_user }}${RESET}!"
       break
     else
-      _print_warning "You're logged into github, but not as ${FG_CYAN}{{ .github_user }}${RESET}}."
+      _print_warn "You're logged into github, but not as ${FG_CYAN}{{ .github_user }}${RESET}}."
       _print_lib github "Logging you out"
       gh auth logout
       echo

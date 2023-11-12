@@ -1,7 +1,8 @@
 #! /usr/bin/env zsh
 
-{{ template "load_zfunctions.zsh" }}
-_printers
+{{ template "printers.zsh" }}
+{{ template "keep_in_dock.zsh" }}
+
 _print_running_script "$0"
 
 set +euo pipefail

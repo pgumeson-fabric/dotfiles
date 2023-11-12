@@ -1,64 +1,7 @@
 #!/usr/bin/env zsh
 
-{{ template "colors.sh" }}
-
 _printers
 
-function _prompt() {
-  usage() { echo "USAGE: prompt [-p <prompt_text>] [-d <default_value>] [-r <match_regex>] [-e <match_print_error>] result_var" 1>&2; exit 1; }
-  local OPTIND
-  local prompt_text= default_value= match_regex= match_print_error="is not valid"
+{{ template "prompt.zsh" }}
 
-  while getopts ":h?p::d:r:e:" opt; do
-    case ${opt} in
-    p)  prompt_text=${OPTARG}
-      prompt_text=${prompt_text:-true}
-      ;;
-    d)  default_value=${OPTARG}
-      ;;
-    r)  match_regex=${OPTARG}
-      ;;
-    e)  match_print_error=${OPTARG}
-      ;;
-    *)
-      usage
-      ;;
-    esac
-  done
-  shift $((OPTIND-1))
-
-  local _result_var="$1"
-  local _value=
-
-  if [ -z "$_result_var" ]; then
-    usage
-  fi
-
-  while :
-  do
-    if [ "$prompt_text" = "true" ]; then
-      vared -p "$(echo -e "${FG_CYAN}[?]${RESET} ")" -c _value
-    elif [ -n "$prompt_text" ]; then
-      vared -p "$(echo -e "${FG_CYAN}[?]${RESET} "$prompt_text" ")" -c _value
-    else
-      vared -c _value
-    fi
-    _value="${_value:-$default_value}"
-
-    if [ -z "$_value" ]; then
-      _print_error "Cannot be blank"
-      continue
-    fi
-
-    if [ -n "$match_regex" ]; then
-      if ! [[ "$_value" =~ $match_regex ]]; then
-        _print_error "[$_value] $match_print_error"
-        continue
-      fi
-    fi
-
-    eval $_result_var="'$_value'"
-    return 0
-  done
-}
 _prompt "$@"

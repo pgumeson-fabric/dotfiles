@@ -7,6 +7,7 @@ function _asdf_chpwd() {
     if [ -n "$ASDF_DIR" ]; then
 
       _printers
+
       {{ template "asdf_install.zsh" dict "dir" "$PWD" }}
 
       # Re-source asdf to put at front of PATH
