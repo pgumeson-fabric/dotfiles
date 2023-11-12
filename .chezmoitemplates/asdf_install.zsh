@@ -43,7 +43,7 @@ while IFS= read -r line; do
         if [[ "{{ .dir }}" = "$HOME" ]]; then
           _print_lib asdf  "installing $plugin $version"
           asdf install $plugin $version
-          _ok
+          _print_ok
         else
           _print_lib asdf  "This project requires $plugin $version"
           _prompt -p "Install? [Y|n] " -d "Y" response
@@ -52,6 +52,7 @@ while IFS= read -r line; do
             _print_lib asdf  "installing $plugin $version"
             asdf install $plugin $version
 
+            echo
             if [ $? -eq 0 ]; then
               _print_ok "Success!"
             else
