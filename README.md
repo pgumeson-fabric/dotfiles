@@ -53,7 +53,8 @@ Some linux support [already in place](https://github.com/pgumeson-fabric/dotfile
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin init --apply pgumeson-fabric
 ```
 
-If something goes wrong during the installation, you can continue by re-running the above command (or just `~/bin/chezmoi apply`)
+> [!NOTE]
+> If something goes wrong during the installation, simply re-run the above command.
 
 ### 3. Follow the prompts
 Chezmoi will prompt you for a few things, like your git email address and your preferred text editor (`VSCode`, `Neovim`, etc.). It will then walk you through all the installation steps and use those saved configs to setup everything customized for you.
