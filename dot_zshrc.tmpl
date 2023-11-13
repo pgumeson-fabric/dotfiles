@@ -57,8 +57,7 @@ if [ -f "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh" ]; then
 fi
 
 # pkgx
-pkgxcmd=$(command -v pkgx)
-if [[ -n "$pkgxmd" && "$pkgxcmd" != "pkgx" ]]; then
+if command -v pkgx &> /dev/null; then
   source <(pkgx --shellcode)
 fi
 

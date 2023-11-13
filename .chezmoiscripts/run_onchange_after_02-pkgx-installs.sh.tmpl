@@ -13,9 +13,16 @@ if [ -x /usr/local/bin/pkgx ]; then
 else
   _print_installing "pkgx"
 fi
+curl -fsS https://pkgx.sh | sh
+pkgx --sync
 
-pkgxcmd=$(command -v pkgx)
-if [[ -n "$pkgxmd" && "$pkgxcmd" != "pkgx" ]]; then
+if ! command -v pkgx &> /dev/null; then
+  _print_error "pkgx not installed"
+  exit 1
+fi
+
+# run shellcode if not integrated
+if [[ "$(command -v pkgx)" != "pkgx" ]]; then
   source <(pkgx --shellcode)
 fi
 
