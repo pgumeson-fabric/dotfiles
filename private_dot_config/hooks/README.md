@@ -4,6 +4,10 @@ For any large customizations you can simply modify your local dotfiles repo at `
 
 These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize.
 
+* [after.zshrc](#afterzshrc)
+* [starship.toml](#starshiptoml)
+* [.ssh/config.d](#sshconfigd)
+
 ### after.zshrc
 
 If you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without.
@@ -12,6 +16,7 @@ If you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after
 touch ~/.config/hooks/after.zshrc
 code ~/.zshrc
 ```
+![after-zshrc](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2718e084-10c5-4ced-b0c8-b92827820b35)
 
 ### starship.toml
 

@@ -2,6 +2,8 @@
 
 Maintained with https://chezmoi.io
 
+**TLDR:** skip to [Installation](#installation):clap:
+
 ## Why? What does it do?
 
 Getting a new machine up and running with all the tools you use (shells, editors, version control) can be consuming and error prone. Not to mention keeping up with new versions and breaking changes... Chezmoi tracks your personal configuration files (dotfiles like `~/.zshrc`) in git, and allows you to quickly restore your settings on any new or existing machine. It also allows common project configurations to be shared and updated across teams.
@@ -103,7 +105,7 @@ git commit
 > In fact, it's preferable to use the customization hooks below. That way you can easily
 > pull down upstream changes and improvements without branching or forking.
 
-## Customizing
+# Customizing
 
 For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/blob/main/private_dot_config/hooks/README.md).
 
@@ -116,6 +118,6 @@ code ~/.config/hooks/after.zshrc
 
 Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/blob/main/dot_config/hooks/README.md):hook:
 
-## Contributing
+# Contributing
 
 Let me know if you are interested in submitting PRs and I'll add you as a contributor:sunglasses:.
