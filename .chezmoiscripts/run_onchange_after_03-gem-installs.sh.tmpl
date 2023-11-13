@@ -8,14 +8,15 @@ set -euo pipefail
 
 ## Gemfile: {{ include "Gemfile.tmpl" | sha256sum }}
 
-_print_debug "loading homebrew"
-if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+if ! command -v brew &> /dev/null; then
   eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
 fi
 
-_print_debug "loading asdf"
 if [ -f "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh" ]; then
   source {{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh
+else
+  _print_error "asdf not found"
+  exit 1
 fi
 
 # Install default gems

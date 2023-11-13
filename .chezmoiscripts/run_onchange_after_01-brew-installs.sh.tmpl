@@ -16,6 +16,11 @@ else
   _print_exists "homebrew"
 fi
 
+if [ ! -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+  _print_error "homebrew not installed"
+  exit 1
+fi
+
 if ! command -v brew &> /dev/null; then
   eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
 fi

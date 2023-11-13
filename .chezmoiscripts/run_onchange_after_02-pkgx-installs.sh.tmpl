@@ -13,10 +13,9 @@ if [ -x /usr/local/bin/pkgx ]; then
 else
   _print_installing "pkgx"
 fi
-curl -fsS https://pkgx.sh | sh
-pkgx --sync
 
-if [[ "$(command -v pkgx)" != "pkgx" ]]; then
+pkgxcmd=$(command -v pkgx)
+if [[ -n "$pkgxmd" && "$pkgxcmd" != "pkgx" ]]; then
   source <(pkgx --shellcode)
 fi
 

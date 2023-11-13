@@ -7,7 +7,7 @@ _print_running_script "$0"
 
 set +euo pipefail
 
-if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
+if ! command -v brew &> /dev/null; then
   eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
 fi
 

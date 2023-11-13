@@ -33,14 +33,14 @@ if [ -x "{{ .homebrew_prefix }}/bin/brew" ]; then
 fi
 
 # fish(y)
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source "{{ .homebrew_prefix }}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "{{ .homebrew_prefix }}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "{{ .homebrew_prefix }}/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # navigation
-source $HOMEBREW_PREFIX/etc/profile.d/z.sh
+source "{{ .homebrew_prefix }}/etc/profile.d/z.sh"
 
 {{ if eq .chezmoi.os "darwin" }}
   # xcode
@@ -51,18 +51,18 @@ source $HOMEBREW_PREFIX/etc/profile.d/z.sh
 export JAVA_HOME="$HOME/.local"
 
 # asdf
-if [ -f "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh" ]; then
-  source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
-  source $HOME/.config/asdf/hooks.zsh
+if [ -f "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh" ]; then
+  source "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh"
+  source "$HOME/.config/asdf/hooks.zsh"
 fi
 
-# pkgx shell integration
-# https://docs.pkgx.sh/using-pkgx/shell-integration
-if command -v pkgx &> /dev/null; then
+# pkgx
+pkgxcmd=$(command -v pkgx)
+if [[ -n "$pkgxmd" && "$pkgxcmd" != "pkgx" ]]; then
   source <(pkgx --shellcode)
 fi
 
-# direnv (pkgx provides this functionality)
+# direnv (until pkgx env feature is fixed)
 if command -v direnv &> /dev/null; then
   export DIRENV_LOG_FORMAT=""
   eval "$(direnv hook zsh)"
