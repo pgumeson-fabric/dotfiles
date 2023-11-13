@@ -1,0 +1,3 @@
+# Only allow README in this dir
+*
+!README.md

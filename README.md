@@ -76,7 +76,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 > [!NOTE]
 > During the initial installation you will be guided through the process of generationg your SSH keypair and uploading the public key to your GitHub account.
 > **This will not overwrite or affect any existing SSH keys you currently have**. However, if you current SSH key uses an older encryption method like `rsa`
-> insted of `ed25519`, then you can safely delete your older keys from your GitHub account.:key: :octocat:
+> insted of `ed25519`, then you should delete your older keys from your GitHub account.:key: :octocat:
 
 <img width="834" alt="Screenshot 2023-11-12 at 11 28 27 AM" src="https://github.com/pgumeson-fabric/dotfiles/assets/145386658/30fc6ab0-998a-41b5-a128-aa9d902ddd99">
 
@@ -108,7 +108,7 @@ git commit
 
 # Customizing
 
-For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/blob/main/private_dot_config/hooks/README.md).
+For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/tree/main/private_dot_config/hooks#readme).
 
 These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize. So for instance, if you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without. For example:
 
@@ -117,7 +117,7 @@ touch ~/.config/hooks/after.zshrc
 code ~/.config/hooks/after.zshrc
 ```
 
-Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/blob/main/dot_config/hooks/README.md):hook:
+Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/tree/main/private_dot_config/hooks#readme):hook:
 
 # Contributing
 
