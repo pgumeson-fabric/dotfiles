@@ -4,22 +4,22 @@ For any large customizations you can simply modify your local dotfiles repo at `
 
 These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize.
 
-### zshrc.after
+### after.zshrc
 
-If you create a file at `~/.hooks/zshrc.after`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without.
+If you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without.
 
 ```shell
-touch ~/.hooks/zshrc.after
+touch ~/.config/hooks/after.zshrc
 code ~/.zshrc
 ```
 
 ### starship.toml
 
-To customize your [starship prompt](https://starship.rs):rocket:, you can override the default config by copying `starship.toml` to the `~/.hooks` dir and modifying it.
+To customize your [starship prompt](https://starship.rs):rocket:, you can override the default config by copying `starship.toml` to the `~/.config/hooks` dir and modifying it.
 
 ```shell
-cp ~/.config/starship.toml ~/.hooks/starship.toml
-code ~/.hooks/starship.toml
+cp ~/.config/starship.toml ~/.config/hooks/starship.toml
+code ~/.config/hooks/starship.toml
 ```
 
 ### .ssh/config.d
@@ -35,6 +35,6 @@ code ~/.ssh/config.d/config.local
 
 Here are some additional hooks that could be useful:
 
-* `.gitconfig` after hook
-* `config.vim` overrides and additional `plugins` hook
+* `after.gitconfig` hook
+* `config.vim` override and additional `plugins` hook
 * `kitty` terminal (or `iTerm`) customizations

@@ -83,18 +83,38 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 Once you're all bootstrapped using the above instructions, chezmoi will be in your PATH and you can run commands like `chezmoi update -v` to pull down latest changes and apply them to your home directory. Chezmoi is fully idempotent, so it will only install new packages or apply updates that have changed.
 
-## Customizing
-
-For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/blob/main/dot_hooks/README.md).
-
-These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize. So for instance, if you create a file at `~/.hooks/zshrc.after`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without. For example:
+If you want to make modifications to your configs then the typical workflow looks like this:
 
 ```shell
-touch ~/.hooks/zshrc.after
-code ~/.zshrc
+$ cd ~
+$ chezmoi edit .zshrc
+$ chezmoi apply  # to apply your changes to your home dir
 ```
 
-Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/blob/main/dot_hooks/README.md):hook:
+Then once you are happy with your changes:
+```shell
+chezmoi cd  # cd into your dotfiles git directory
+git add dot_zshrc.tmpl
+git commit
+```
+
+> [!NOTE]
+> If you only need to make small changes, then you shouldn't need to commit anything at all.
+> In fact, it's preferable to use the customization hooks below. That way you can easily
+> pull down upstream changes and improvements without branching or forking.
+
+## Customizing
+
+For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/blob/main/private_dot_config/hooks/README.md).
+
+These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize. So for instance, if you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without. For example:
+
+```shell
+touch ~/.config/hooks/after.zshrc
+code ~/.config/hooks/after.zshrc
+```
+
+Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/blob/main/dot_config/hooks/README.md):hook:
 
 ## Contributing
 

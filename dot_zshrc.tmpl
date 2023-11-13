@@ -83,9 +83,9 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
 eval "$(zoxide init zsh)"
 
 # starship
-if [ -f "$HOME/.hooks/starship.toml" ]; then
+if [ -f "$HOME/.config/hooks/starship.toml" ]; then
   # hook to override default ~/.config/starship.toml
-  export STARSHIP_CONFIG="$HOME/.hooks/starship.toml"
+  export STARSHIP_CONFIG="$HOME/.config/hooks/starship.toml"
 fi
 export STARSHIP_LOG="error" # silence timeout warnings
 eval "$(starship init zsh)"
@@ -103,7 +103,7 @@ alias la="lsd -la"
 alias ll="lsd -1"
 alias ls="lsd -1"
 
-# .zshrc.after hook for local customization
-if [ -f "$HOME/.hooks/zshrc.after" ]; then
-  source "$HOME/.hooks/zshrc.after"
+# .after.zshrc hook for local customization
+if [ -f "$HOME/.config/hooks/after.zshrc" ]; then
+  source "$HOME/.config/hooks/after.zshrc"
 fi
