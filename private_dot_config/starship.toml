@@ -9,7 +9,6 @@ truncation_symbol = "…/"
 min_time = 4
 show_milliseconds = false
 disabled = false
-# style = "bold italic red"
 
 [docker_context]
 format = "via [$symbol$context]($style) "
@@ -42,7 +41,7 @@ am = "am"
 am_or_rebase = "am/rebase"
 
 [python]
-format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
+format = 'via [${symbol}${version} (\($virtualenv\) )]($style) '
 style = "bold yellow"
 pyenv_prefix = "venv "
 python_binary = ["./venv/bin/python", "python", "python3", "python2"]
@@ -50,6 +49,9 @@ detect_extensions = ["py"]
 version_format = "v${raw}"
 
 [nodejs]
-format = "via [${symbol}Node $version](bold green) "
-detect_files = ["package.json", ".node-version"]
-detect_folders = ["node_modules"]
+format = "via [${symbol}${version}]($style) "
+style = "bold green"
+
+[ruby]
+format = "via [${symbol}${version}]($style) "
+style = "bold red"
