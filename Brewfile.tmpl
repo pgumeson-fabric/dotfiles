@@ -1,8 +1,12 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 tap "homebrew/services"
+{{- if eq .chezmoi.os "darwin" }}
 tap "sporkd/fonts", "https://gitlab.com/sporkd/homebrew-fonts.git"
+tap "homebrew/cask-fonts"
+{{ end }}
 
+# Brews
+#########################################
 brew "asdf"  # until pkgx provides more stuff
 brew "awscli"
 brew "codespell"
@@ -28,18 +32,17 @@ brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 
+{{- if eq .chezmoi.os "darwin" }}
+brew "mas"
+
 # Casks
+#########################################
 # cask "docker"
 cask "figma"
-# cask "firefox"
-# cask "google-chrome"
 # cask "iterm2"
 # cask "kdiff3"
-# cask "kitematic"
-# cask "postman"
-cask "rocket"
+cask "postman"
 cask "visual-studio-code"
-# cask "xquartz"
 cask "zed"
 
 # Font Casks
@@ -53,8 +56,10 @@ cask "font-monaco-for-powerline"
 # cask "font-roboto"
 cask "font-hack-nerd-font"
 cask "font-symbols-only-nerd-font"
+{{ end }}
 
 # VSCode Extensions
+#########################################
 vscode "alexkrechik.cucumberautocomplete"
 vscode "Arjun.swagger-viewer"
 vscode "Blodwynn.featurehighlight"
@@ -89,4 +94,9 @@ vscode "zhuangtongfa.material-theme"
 
 {{- if eq .vscode.vim_mode "true" }}
 vscode "vscodevim.vim"
+{{ end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+# Apple App Store
+#########################################
 {{ end }}
