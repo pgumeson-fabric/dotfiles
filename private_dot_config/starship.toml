@@ -43,9 +43,9 @@ am_or_rebase = "am/rebase"
 [nodejs]
 format = "via [${symbol}${version}]($style) "
 style = "bold green"
-detect_files = [".tool-versions", "pkgx.yaml", "package.json"]
+detect_files = [".node-version", ".tool-versions", "pkgx.yaml", "package.json"]
 
 [ruby]
 format = "via [${symbol}${version}]($style) "
 style = "bold red"
-detect_files = [".tool-versions", "pkgx.yaml", "Gemfile"]
+detect_files = [".ruby-version", ".tool-versions", "pkgx.yaml", "Gemfile"]
