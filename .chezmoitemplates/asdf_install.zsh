@@ -28,7 +28,6 @@ while IFS= read -r line; do
       _print_lib asdf  "using $plugin plugin"
     fi
 
-    echo
     asdf list $plugin $version &> /dev/null
     if [ $? -ne 0 ]; then
       versions="$(asdf list all $plugin)"
@@ -59,6 +58,7 @@ while IFS= read -r line; do
               _print_error "Something went wrong"
             fi
           else
+            echo
             _print_skipping
           fi
         fi
