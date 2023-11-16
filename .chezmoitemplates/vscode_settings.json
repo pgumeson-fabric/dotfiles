@@ -8,6 +8,7 @@
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "files.trimTrailingWhitespace": true,
+  {{- if eq .use_flutter "true" }}
   "[dart]": {
       "editor.formatOnSave": true,
       "editor.formatOnType": true,
@@ -20,6 +21,7 @@
       "editor.tabCompletion": "onlySnippets",
       "editor.wordBasedSuggestions": false
   },
+  {{- end }}
   "[json]": {
       "editor.defaultFormatter": "vscode.json-language-features"
   },
