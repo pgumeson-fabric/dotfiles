@@ -36,6 +36,12 @@ brew "zsh-syntax-highlighting"
 {{- if eq .chezmoi.os "darwin" }}
 brew "mas"
 
+{{- if eq .use_flutter "true" }}
+cask "android-ndk"
+cask "android-studio"
+cask "flutter"
+{{ end }}
+
 # Casks
 #########################################
 # cask "docker"
@@ -97,7 +103,15 @@ vscode "zhuangtongfa.material-theme"
 vscode "vscodevim.vim"
 {{ end }}
 
+{{- if eq .use_flutter "true" -}}
+vscode "Dart-Code.dart-code"
+vscode "Dart-Code.flutter"
+{{ end }}
+
 {{- if eq .chezmoi.os "darwin" }}
 # Apple App Store
 #########################################
+{{- if eq .use_flutter "true" }}
+mas 'Xcode', id: 497799835
+{{ end -}}
 {{ end }}

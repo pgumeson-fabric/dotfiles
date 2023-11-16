@@ -52,6 +52,18 @@ source "{{ .homebrew_prefix }}/etc/profile.d/z.sh"
 # java
 export JAVA_HOME="$HOME/.local"
 
+{{ if eq .use_flutter "true" }}
+  # android ndk
+  if [ -x "{{ .homebrew_prefix }}/share/android-ndk" ]; then
+    export ANDROID_NDK_HOME="{{ .homebrew_prefix }}/share/android-ndk"
+  fi
+  {{ if eq .chezmoi.os "darwin" }}
+  if [ -d "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" ]; then
+    path[1,0]="$HOME/Library/Android/sdk/cmdline-tools/latest/bin"
+  fi
+  {{ end }}
+{{ end }}
+
 # asdf
 if [ -f "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh" ]; then
   source "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh"
