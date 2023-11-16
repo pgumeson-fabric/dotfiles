@@ -40,18 +40,12 @@ bisect = "bisect"
 am = "am"
 am_or_rebase = "am/rebase"
 
-[python]
-format = 'via [${symbol}${version} (\($virtualenv\) )]($style) '
-style = "bold yellow"
-pyenv_prefix = "venv "
-python_binary = ["./venv/bin/python", "python", "python3", "python2"]
-detect_extensions = ["py"]
-version_format = "v${raw}"
-
 [nodejs]
 format = "via [${symbol}${version}]($style) "
 style = "bold green"
+detect_files = [".tool-versions", "pkgx.yaml", "package.json"]
 
 [ruby]
 format = "via [${symbol}${version}]($style) "
 style = "bold red"
+detect_files = [".tool-versions", "pkgx.yaml", "Gemfile"]
