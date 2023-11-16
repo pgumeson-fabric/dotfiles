@@ -14,7 +14,7 @@ If you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after
 
 ```shell
 touch ~/.config/hooks/after.zshrc
-code ~/.zshrc
+code ~/.config/hooks/after.zshrc
 ```
 ![after-zshrc](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2718e084-10c5-4ced-b0c8-b92827820b35)
 
