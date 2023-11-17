@@ -117,11 +117,12 @@ git commit
 
 For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide some [customization hooks](https://github.com/pgumeson-fabric/dotfiles/tree/main/private_dot_config/hooks#readme).
 
-These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize. So for instance, if you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases or zsh customizations you can't live without. For example:
+These hooks are just local files in your home directory that live outside the chezmoi repo, but still get run at specific times when you open a new terminal.
+So instead of putting shell customizations in `~/.zshrc` (which is managed by chezmoi), favor adding them in `~/.zlogin`. By default, zsh will source `.zlogin` right after `~/.zshrc`, making it the perfect place to add any aliases or zsh customizations that are specific only to you. For example:
 
 ```shell
-touch ~/.config/hooks/after.zshrc
-code ~/.config/hooks/after.zshrc
+touch ~/.zlogin
+code ~/.zlogin
 ```
 
 Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/tree/main/private_dot_config/hooks#readme):hook:

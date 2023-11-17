@@ -2,21 +2,20 @@
 
 For any large customizations you can simply modify your local dotfiles repo at `~/.local/share/chezmoi` (and then ideally submit bug-fix PRs and improvement PRs back upstream). But if you only require small local changes (like adding zsh `aliases` or tweaking your prompt), we provide the customization hooks below.
 
-These hooks are just local files in your home directory that live outside the chezmoi repo, and get run at specific times when your dotfiles initialize.
+These hooks are just local files in your home directory that live outside the chezmoi repo, but still get run at specific times when you open a new terminal.
 
-* [after.zshrc](#afterzshrc)
+* [.zlogin](#zlogin)
 * [starship.toml](#starshiptoml)
 * [.ssh/config.d](#sshconfigd)
 
-### after.zshrc
+### .zlogin
 
-If you create a file at `~/.config/hooks/after.zshrc`, it will get sourced after the chezmoi managed `~/.zshrc` file. A perfect place to add any aliases you can't live without.
+Instead of putting shell customizations in `~/.zshrc` (which is managed by chezmoi), favor adding them in `~/.zlogin`. By default, zsh will source `.zlogin` right after `~/.zshrc`, making it the perfect place to add any aliases or zsh customizations that are specific only to you. For example:
 
 ```shell
-touch ~/.config/hooks/after.zshrc
-code ~/.config/hooks/after.zshrc
+touch ~/.zlogin
+code ~/.zlogin
 ```
-![after-zshrc](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2718e084-10c5-4ced-b0c8-b92827820b35)
 
 ### starship.toml
 
