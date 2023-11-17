@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# Check dotfile repo for updates every 4 days
+ts=$(stat -f '%m' "{{ .chezmoi.sourceDir }}/.git/FETCH_HEAD")
+if [ "$ts" -lt "$(date -v-4d +%s)" ]; then
+  git -C "{{ .chezmoi.sourceDir }}" fetch 2> /dev/null
+  git_status=$(git -C "{{ .chezmoi.sourceDir }}" status)
+  if [[ "$git_status" =~ (Your branch is behind) ]]; then
+    FG_CYAN=$(tput setaf 6)
+    RESET=$(tput sgr0)
+    echo -e "\nNew dotfile updates available😎! Run ${FG_CYAN}chezmoi update${RESET} to get them."
+  fi
+fi

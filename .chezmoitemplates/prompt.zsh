@@ -1,5 +1,3 @@
-{{ template "colors.sh" }}
-
 function _prompt() {
   usage() { echo "USAGE: prompt [-p <prompt_text>] [-d <default_value>] [-r <match_regex>] [-e <match_print_error>] [-c <continue_key>] result_var" 1>&2; exit 1; }
   local OPTIND
@@ -30,9 +28,9 @@ function _prompt() {
 
   if [ $continue_key ]; then
     if [ -n "$prompt_text" ]; then
-      echo -e "${FG_CYAN}[...]${RESET} $prompt_text"
+      echo -e "${FG_CYAN}[...]${RESET} $prompt_text (press any key to continue)"
     else
-      echo -e "${FG_CYAN}[...]${RESET} Press any key to continue"
+      echo -e "${FG_CYAN}[...]${RESET} (press any key to continue)"
     fi
     read -k1 -s
     return 0

@@ -74,7 +74,6 @@ if [[ $response =~ ^(y|yes|Y) ]]; then
   echo
   _print_running "tar czvf $backup_dir/$backup_file"
   tar czvf "$backup_dir/$backup_file" "${files[@]}"
-  touch "$backup_dir/$backup_file"
   if [[ $? -ne 0 || ! -f "./$backup_dir/$backup_file" ]]; then
     _print_error "Oops, something went wrong. Aborting"
     cd -
@@ -82,11 +81,11 @@ if [[ $response =~ ^(y|yes|Y) ]]; then
   fi
   _print_ok "backup successful!"
   echo
-  _print_info "You can restore from backup by running"
+  _print_notice "You can restore from backup by running"
   _print_cmd "cd ~"
   _print_cmd "tar xzvf $backup_dir/$backup_file"
   echo
-  _prompt -c
+  _prompt -c -p "Got it!"
 else
   _print_skipping "backup"
 fi

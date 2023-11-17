@@ -101,3 +101,7 @@ alias tree='et'
 alias la="lsd -la"
 alias ll="lsd -1"
 alias ls="lsd -1"
+
+if [[ -o login ]]; then
+  source ~/.config/zsh/login_checks
+fi
