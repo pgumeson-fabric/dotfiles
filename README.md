@@ -138,7 +138,7 @@ Let me know if you are interested in submitting PRs and I'll add you as a contri
 - [ ] Move fully to pkgx once it supports all the package versions we're using
 - [ ] Fish shell support :fish:
 - [ ] Opt-in React tools and environment
-- [ ] Opt-in Flutter tools and environment :bird:
+- [ ] [Opt-in Flutter tools and environment](https://github.com/pgumeson-fabric/dotfiles/pull/1) :bird:
 - [ ] Secure retreival of files from passowrd manager :closed_lock_with_key:
 - [ ] LazyVim config :zzz:
 - [ ] Opt-in for Emacs editor
