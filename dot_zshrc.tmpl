@@ -89,8 +89,10 @@ fi
 export STARSHIP_LOG="error" # silence timeout warnings
 eval "$(starship init zsh)"
 
+{{ if eq .editor "nvim" }}
 # use nvim for man
 export MANPAGER="nvim +Man!"
+{{ end }}
 
 # neovim
 alias vi=nvim
@@ -101,6 +103,9 @@ alias tree='et'
 alias la="lsd -la"
 alias ll="lsd -1"
 alias ls="lsd -1"
+
+# diff
+alias diff="diff --color=always --suppress-common-lines"
 
 if [[ -o login ]]; then
   source ~/.config/zsh/login_checks

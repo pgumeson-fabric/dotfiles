@@ -64,6 +64,11 @@
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
   mergeoptions = --no-edit
+  {{- if eq .editor "code" }}
+  editor = code --wait --new-window
+  {{ else }}
+  editor = {{ .editor }}
+  {{ end }}
 
 [init]
 	defaultBranch = main
@@ -137,9 +142,12 @@
   # autoSquash = true
 
 [diff]
+  {{- if eq .editor "code" }}
   tool = vscode
+  {{ else }}
+  tool = nvimdiff
+  {{ end }}
 
-  # Use the slower but better patience diff algorithm
   algorithm = patience
 
   # Use new diff algorithm to make e.g. function diffs look better.
@@ -156,23 +164,24 @@
   cmd = code --wait --diff $LOCAL $REMOTE
 
 [merge]
+  {{- if eq .editor "code" }}
   tool = vscode
+  {{ else }}
+  tool = nvimdiff4
+  {{ end }}
 
 [mergetool]
-  # Don't prompt before opening the merge tool.
   prompt = false
-
-  # Don't keep backups of the merge tool inputs.
   keepBackup = false
-
-  # Don't keep the merge tool temporary input/output files.
   keepTemporaries = false
 
 [mergetool "vscode"]
   cmd = code --wait $MERGED
 
+[mergetool "nvimdiff4"]
+  cmd = nvim -f -d -c '$wincmd w' -c 'wincmd J' $LOCAL $REMOTE $MERGED
+
 [help]
-  # Autocorrect mistyped commands.
   autocorrect = 1
 
 [github]

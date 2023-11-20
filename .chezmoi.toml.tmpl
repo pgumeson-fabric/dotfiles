@@ -18,7 +18,7 @@
 {{- if hasKey . "email" -}}
 {{-   $email = .email -}}
 {{- else if $interactive -}}
-{{-   $email = promptString "Your @florenceos email" -}}
+{{-   $email = promptString "Your email (@florenceos.com)" -}}
 {{- end -}}
 
 {{- /* git_email */ -}}
@@ -34,29 +34,33 @@
 {{- if hasKey . "github_user" -}}
 {{-   $github_user = .github_user -}}
 {{- else if $interactive -}}
-{{-   $github_user = promptString "Your github username" -}}
+{{-   $github_user = promptString "Your github username (zipnosis org)" -}}
 {{- end -}}
 
 {{- /* editor */ -}}
-{{- $choices := list "code" "emacs" "nvim" "zed" "other" -}}
-{{- $editor := "zed" -}}
+{{- $choices := list "emacs" "nano" "nvim" "vscode" "zed" "other" -}}
+{{- $editor := "nano" -}}
 {{- if hasKey . "editor" -}}
 {{-   $editor = .editor -}}
 {{- else if $interactive -}}
 {{-   $editor = promptChoice "Your text editor for git commits" $choices $editor -}}
-{{-   if eq $editor "other" -}}
+{{-   if eq $editor "vscode" -}}
+{{-     $editor = "code" -}}
+{{-   else if eq $editor "other" -}}
 {{-     $editor = promptString "Other Editor" -}}
 {{-   end -}}
 {{- end -}}
 
 {{- /* visual */ -}}
-{{- $choices := list "code" "emacs" "nvim" "rubymine" "zed" "other"  -}}
-{{- $visual := "code" -}}
+{{- $choices := list "emacs" "nvim" "vscode" "zed" "other"  -}}
+{{- $visual := "vscode" -}}
 {{- if hasKey . "visual" -}}
 {{-   $visual = .visual -}}
 {{- else if $interactive -}}
 {{-   $visual = promptChoice "Your visual editor (IDE)" $choices $visual -}}
-{{-   if eq $visual "other" -}}
+{{-   if eq $visual "vscode" -}}
+{{-     $visual = "code" -}}
+{{-   else if eq $visual "other" -}}
 {{-     $visual = promptString "Other visual editor (IDE)" -}}
 {{-   end -}}
 {{- end -}}
