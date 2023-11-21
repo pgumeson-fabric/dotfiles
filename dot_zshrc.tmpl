@@ -59,6 +59,7 @@ fi
 # pkgx
 if command -v pkgx &> /dev/null; then
   source <(pkgx --shellcode)
+  source "$HOME/.config/pkgx/hooks.zsh"
 fi
 
 # direnv (until pkgx env feature is fixed)
@@ -67,6 +68,12 @@ if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
+# TODO: use pkgx postgres instead
+if [ -d "{{ .homebrew_prefix }}/opt/postgresql@15/bin" ]; then
+  path[1,0]="{{ .homebrew_prefix }}/opt/postgresql@15/bin"
+fi
+
+# user paths
 path[1,0]="/usr/local/bin"
 path[1,0]="$HOME/.local/bin"
 path[1,0]="$HOME/bin"
@@ -100,9 +107,10 @@ alias vim=nvim
 alias tree='et'
 
 # ls
-alias la="lsd -la"
-alias ll="lsd -1"
 alias ls="lsd -1"
+alias ll="lsd -1"
+alias la="lsd -la"
+alias lh="lsd -1ad .*"  # list only hidden files
 
 # diff
 alias diff="diff --color=always --suppress-common-lines"

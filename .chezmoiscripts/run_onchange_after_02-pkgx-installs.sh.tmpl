@@ -6,10 +6,10 @@ _print_running_script "$0"
 
 set +euo pipefail
 
+
 echo
 if [ -x /usr/local/bin/pkgx ]; then
   _print_updating "pkgx"
-  sudo -p "Password for %p:" rm /usr/local/bin/pkgx
 else
   _print_installing "pkgx"
 fi
@@ -35,25 +35,28 @@ if [ ! -x "$HOME/.local/bin/go" ];then
   _print_lib pkgx "installing go.dev@latest"
   pkgx install go.dev@latest
 fi
+
 if [ ! -x "$HOME/.local/bin/node" ];then
   _print_lib pkgx "installing nodejs.org@latest"
   pkgx install nodejs.org@latest
+  pkgx node -v
 fi
 if [ ! -x "$HOME/.local/bin/npm" ]; then
   _print_lib pkgx "installing npmjs.com@latest"
   pkgx install npmjs.com@latest
 fi
-# if [ ! -x "$HOME/.local/bin/ruby" ]; then
-#   _print_lib pkgx "installing ruby-lang.org@latest"
-#   pkgx install ruby-lang.org@latest
-# fi
 
-# if [ ! -x "$HOME/.local/bin/gem" ]; then
-#   _print_lib pkgx "installing rubygems.org@latest"
-#   pkgx install rubygems.org@latest
-#   _print_lib pkgx "installing bundler"
-#   $HOME/.local/bin/gem install bundler
-# fi
+if [ ! -x "$HOME/.local/bin/ruby" ]; then
+  _print_lib pkgx "installing ruby-lang.org@latest"
+  pkgx install ruby-lang.org@latest
+  pkgx ruby -v
+fi
+if [ ! -x "$HOME/.local/bin/gem" ]; then
+  _print_lib pkgx "installing rubygems.org@latest"
+  pkgx install rubygems.org@latest
+  _print_lib pkgx "installing bundler"
+  pkgx gem install bundler
+fi
 
 # fix pkgx ruby linking issue
 if [ ! -L /opt/ruby-lang.org ]; then
@@ -61,3 +64,6 @@ if [ ! -L /opt/ruby-lang.org ]; then
   _print_symlinking "$HOME/.pkgx/ruby-lang.org" "/opt/ruby-lang.org"
   sudo -p "Password for %p:" ln -s "$HOME/.pkgx/ruby-lang.org" /opt/ruby-lang.org
 fi
+
+echo
+_print_ok

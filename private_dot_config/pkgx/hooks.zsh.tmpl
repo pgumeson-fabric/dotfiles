@@ -1,0 +1,44 @@
+function _pkgx_chpwd() {
+  emulate -L zsh
+
+  # if pkgx dev env on
+  if type _pkgx_dev_off > /dev/null 2>&1; then
+
+    # Install bundler version in Gemfile.lock
+    if [[ -f "$PWD/Gemfile.lock" && ! -f "$PWD/.tool-versions" ]]; then
+      _printers
+      symver="$(grep -A 1 "BUNDLED WITH" $PWD/Gemfile.lock | tail -n 1 | awk '{$1=$1};1')"
+      if [[ -n "$symver" && $(pkgx gem info -i -v ${symver} bundler) = 'false' ]]; then
+        echo
+        _print_installing "bundler v$symver from Gemfile.lock"
+        result=$(pkgx gem install bundler -v ${symver})
+        _print_ok "$result"
+      fi
+    fi
+  fi
+}
+chpwd_functions=(${chpwd_functions[@]} "_pkgx_chpwd")
+
+# TODO: get this working instead
+# if which dev | grep -Eq '_pkgx_'; then
+#   echo "using pkgx vesrion of dev..."
+#   functions -c dev _orig_pkgx_dev
+#
+#   dev() {
+#     _orig_pkgx_dev "$@"
+#
+#     _printers
+#
+#     # Install bundler version in Gemfile.lock
+#     if [[ -f "$PWD/Gemfile.lock" ]]; then
+#       symver="$(grep -A 1 "BUNDLED WITH" $PWD/Gemfile.lock | tail -n 1 | awk '{$1=$1};1')"
+#       _print_debug "Gemfile bundled with v$symver"
+#       if [[ -n "$symver" && $(pkgx gem info -i -v ${symver} bundler) = 'false' ]]; then
+#         echo
+#         _print_installing "bundler v$symver from Gemfile.lock"
+#         result=$(pkgx gem install bundler -v ${symver})
+#         _print_ok "$result"
+#       fi
+#     fi
+#   }
+# fi

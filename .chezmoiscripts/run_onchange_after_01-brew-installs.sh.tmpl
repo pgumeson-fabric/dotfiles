@@ -37,8 +37,12 @@ echo
 _print_lib homebrew "removing unused dependencies..."
 brew autoremove
 
+echo
 keep_in_dock "Figma"
 keep_in_dock "Postman"
 keep_in_dock "Visual Studio Code"
 keep_in_dock "Zed"
 killall Dock &> /dev/null
+
+echo
+_print_ok

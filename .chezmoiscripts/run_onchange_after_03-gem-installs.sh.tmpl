@@ -8,20 +8,21 @@ set -euo pipefail
 
 ## Gemfile: {{ include "Gemfile.tmpl" | sha256sum }}
 
-if ! command -v brew &> /dev/null; then
-  eval "$({{ .homebrew_prefix }}/bin/brew shellenv)"
-fi
-
-if [ -f "{{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh" ]; then
-  source {{ .homebrew_prefix }}/opt/asdf/libexec/asdf.sh
-else
-  _print_error "asdf not found"
+if ! command -v pkgx &> /dev/null; then
+  _print_error "pkgx not installed"
   exit 1
 fi
 
 # Install default gems
-asdf exec bundle -v &> /dev/null
-if [ $? -eq 0 ]; then
-  _print_installing "default gems for $(asdf exec ruby -v)"
-  asdf exec bundle install --gemfile="$HOME/Gemfile"
+pkgx bundle -v &> /dev/null
+if [ $? -ne 0 ]; then
+  _print_error "Oops. pkgx could not run bundle install"
+  pkgx bundle -v
+  exit 1
 fi
+
+_print_installing "Gems for default $(pkgx ruby -v)"
+pkgx bundle install --gemfile="$HOME/Gemfile"
+
+echo
+_print_ok

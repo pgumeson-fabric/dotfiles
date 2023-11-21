@@ -29,7 +29,9 @@ until [[ -f "$ssh_key_file" ]]; do
     _print_error "Oops, something went wrong."
     _prompt -p "Try again? [Y|n] " -d "Y" resp
     if [[ $resp =~ ^(n|no|N) ]]; then
+      echo
       _print_skipping "Run ${BOLD}chezmoi apply${RESET} to generate your SSH keypair later."
+      echo
       exit 1
     fi
   fi
@@ -61,7 +63,9 @@ while true; do
     _print_error "Oops, something went wrong."
     _prompt -p "Try again? [Y|n] " -d "Y" resp
     if [[ $resp =~ ^(n|no|N) ]]; then
+      echo
       _print_skipping "Run ${BOLD}chezmoi apply${RESET} to upload your private key later."
+      echo
       exit 1
     fi
   fi

@@ -12,14 +12,14 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 
 #### This `dotfiles` repo will do the following:
 
-1. Installs [Homebrew](https://brew.sh/) and bundles your [Brewfile](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl):beer:
-1. Installs [asdf](https://asdf-vm.com/) and the Ruby:small_red_triangle: plugin for managing Ruby versions used in our projects.
-1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew.
-1. Configures [direnv](https://direnv.net) for setting project specific PATH and ENV vars in an `.envrc` file.
-1. Generates your SSH keypair and uploads your public key to your GitHub account:octocat:
-1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L57-L88).
-1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt:rocket:
-1. Optional [Neovim](https://neovim.io) configuration for vim users.
+1. Installs [Homebrew](https://brew.sh/) and bundles your [Brewfile](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl) :beer:
+1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew
+1. Installs [asdf](https://asdf-vm.com/) and the Ruby:small_red_triangle: plugin (for managing Ruby versions not yet in pkgx)
+1. Configures [direnv](https://direnv.net) for setting project specific PATH and ENV vars in an `.envrc` file
+1. Generates your SSH keypair and uploads your public key to your GitHub account :octocat:
+1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L61-L97)
+1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt :rocket:
+1. Optional [Neovim](https://neovim.io) configuration for vim users
 
 #### Finally, it installs the [kitty terminal](https://sw.kovidgoyal.net/kitty):cat: and configures your `zsh` shell to look and function like this:
 ![session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/95e65c2e-62f5-4bf8-9e76-1be7c2bf8288)
@@ -89,7 +89,37 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 <br>
 
-# Daily Use
+# Development
+
+## pkgx
+
+With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
+
+```shell
+$ cd my-project
+$ echo "3.2.2" > .ruby-version
+$ echo "21.2.0" > .node-version
+$ dev
+
+...installs...
+env +ruby-lang.org@3.2.2 +nodejs.org@21.2.0 +git-scm.org
+```
+
+> [!NOTE]
+> Packages are only installed to your path for the current project! :purple_heart:
+> See: https://docs.pkgx.sh/using-dev/dev
+
+## asdf
+
+For older packages that `pkgx` does not yet provide, we use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions` and they will be available when you `cd` into the project.
+
+```shell
+$ cd my-project
+$ echo "ruby 2.7.6" > .tool-versions
+$ cd .  # to trigger asdf install
+```
+
+# Chezmoi Usage
 
 Once the installer has finished running, `chezmoi` will be in your PATH and you can run commands like `chezmoi update -v`, which will pull down the latest changes from git and apply them to your home directory. Chezmoi is fully idempotent, so it will only install new packages or apply updates that have changed since your last run.
 
@@ -135,7 +165,7 @@ Let me know if you are interested in submitting PRs and I'll add you as a contri
 - [x] Backup home directory on first run
 - [x] Customization hooks :hook:
 - [ ] Auto-clone our projects to local projects dir and configure
-- [ ] Move fully to pkgx once it supports all the package versions we're using
+- [ ] Sunset asdf once pkgx supports all the package versions we're using
 - [ ] Fish shell support :fish:
 - [ ] Opt-in React tools and environment
 - [ ] [Opt-in Flutter tools and environment](https://github.com/pgumeson-fabric/dotfiles/pull/1) :bird:

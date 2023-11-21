@@ -57,7 +57,7 @@ function _print_item() {
 }
 
 function _print_ask() {
-  local default="$2"
+  local default="${2:-}"
   if [ -n "$default" ]; then
     echo -e "${FG_CYAN}[?]${RESET} $1 [$default] "
   else
@@ -70,11 +70,7 @@ function _print_dryrun() {
 }
 
 function _print_ok() {
-  if [ -n "$1" ]; then
-    echo -e "${FG_GREEN}[ok]${RESET} $1"
-  else
-    echo -e "${FG_GREEN}[ok]${RESET}"
-  fi
+  echo -e "${FG_GREEN}[ok]${RESET} ${1:-}"
   echo
 }
 
@@ -105,12 +101,7 @@ function _print_removing() {
 }
 
 function _print_skipping() {
-  if [ -n "$1" ]; then
-    echo -e "${FG_YELLOW}[skipping]${RESET} $1"
-  else
-    echo -e "${FG_YELLOW}[skipping]${RESET}"
-  fi
-  echo
+  echo -e "${FG_YELLOW}[skipping]${RESET} ${1:-}"
 }
 
 function _print_lib() {

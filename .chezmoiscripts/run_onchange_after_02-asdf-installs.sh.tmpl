@@ -21,4 +21,6 @@ fi
 
 if [ -f "$HOME/.tool-versions" ]; then
   {{ template "asdf_install.zsh" dict "dir" "$HOME" }}
+else
+  print_ok "no global asdf .tool_versions"
 fi
