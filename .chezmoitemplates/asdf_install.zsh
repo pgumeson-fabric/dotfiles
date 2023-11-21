@@ -7,25 +7,12 @@ while IFS= read -r line; do
   local version=$parts[2]
   if [[ $plugin && $version ]]; then
     echo
-    if [[ "$plugin" = "ruby" ]]; then
-      # Remove pkgx ruby and rubygems from PATH
-      if [[ "$(command -v env)" = "env" ]]; then
-        env -ruby-lang.org -rubygems.org
-      fi
-    fi
-    if [[ "$plugin" = "nodejs" ]]; then
-      # Remove pkgx node and npm from PATH
-      if [[ "$(command -v env)" = "env" ]]; then
-        env -nodejs.org -npmjs.com
-      fi
-    fi
-
     if ! grep -q $plugin <<< "$plugins" ; then
-      _print_lib asdf  "adding $plugin plugin"
+      _print_lib asdf "adding $plugin plugin"
       asdf plugin-add $plugin
       [ $? -ne 0 ] && continue
     else
-      _print_lib asdf  "using $plugin plugin"
+      _print_lib asdf "using $plugin plugin"
     fi
 
     local pkgx_dev_enabled=false
@@ -37,7 +24,9 @@ while IFS= read -r line; do
     asdf list $plugin $version &> /dev/null
     if [ $? -ne 0 ]; then
       local versions="$(asdf list all $plugin)"
-      if grep -q $version <<< "$versions" ; then
+      if [[ "$version" = "system" ]]; then
+        _print_lib asdf "Falling back on system $plugin"
+      elif grep -q $version <<< "$versions" ; then
         # Turn pkgx dev off before installs
         if [[ "$pkgx_dev_enabled" = "true" && "$disabled_pkgx_dev" = "false" ]]; then
           _pkgx_dev_off --shy
@@ -46,15 +35,15 @@ while IFS= read -r line; do
         fi
 
         if [[ "{{ .dir }}" = "$HOME" ]]; then
-          _print_lib asdf  "installing $plugin $version"
+          _print_lib asdf "installing $plugin $version"
           asdf install $plugin $version
           _print_ok
         else
-          _print_lib asdf  "This project requires $plugin $version"
+          _print_lib asdf "This project requires $plugin $version"
           _prompt -p "Install? [Y|n] " -d "Y" response
           if [[ $response =~ ^(y|yes|Y) ]]; then
             echo
-            _print_lib asdf  "installing $plugin $version"
+            _print_lib asdf "installing $plugin $version"
             asdf install $plugin $version
 
             echo
@@ -72,7 +61,7 @@ while IFS= read -r line; do
         _print_warn "No compatible version found for $plugin $version"
       fi
     else
-      _print_lib asdf  "$plugin $version already installed"
+      _print_lib asdf "$plugin $version already installed"
     fi
 
     # Install any bundler version in Gemfile.lock
@@ -89,6 +78,21 @@ while IFS= read -r line; do
     # Turn pkgx dev back on
     if [[ "$disabled_pkgx_dev" = "true" ]]; then
       [[ "$(command -v dev)" = "dev" ]] && dev
+    fi
+
+    # Remove pkgx ruby and rubygems from PATH
+    if [[ "$plugin" = "ruby" && "$version" != "system" ]]; then
+      if [[ "$(command -v env)" = "env" ]]; then
+        env -ruby-lang.org -rubygems.org
+      fi
+    fi
+
+    # Remove pkgx node and npm from PATH
+    if [[ "$plugin" = "nodejs" && "$version" != "system" ]]; then
+      # Remove pkgx node and npm from PATH
+      if [[ "$(command -v env)" = "env" ]]; then
+        env -nodejs.org -npmjs.com
+      fi
     fi
   fi
 done < "{{ .dir }}/.tool-versions"
