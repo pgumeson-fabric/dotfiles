@@ -1,0 +1,26 @@
+#! /usr/bin/env zsh
+
+{{ template "printers.zsh" }}
+{{ template "prompt.zsh" }}
+
+set -euo pipefail
+
+echo
+_print_info "Chezmoi completed successfully!"
+_print_info "Don't forget to open a new terminal to load your settings."
+
+if [[ "$TERM" != xterm-kitty ]]; then
+  if command -v kitty &> /dev/null; then
+    echo
+    _print_prog kitty "You now have kitty terminal installed and optimized to"
+    _print_prog kitty "work with your new settings and fonts."
+    echo
+    _prompt -p "Open a kitty terminal now? [Y|n] " -d "Y" resp
+    if [[ $resp =~ ^(y|yes|Y) ]]; then
+      kitty -1 --hold & disown
+    fi
+  fi
+fi
+
+echo
+_print_ok "Goodbye👋🏻"
