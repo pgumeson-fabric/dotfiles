@@ -45,13 +45,13 @@ while true; do
       break
     else
       _print_warn "You're logged into github, but not as ${FG_CYAN}{{ .github_user }}${RESET}}."
-      _print_lib github "Logging you out"
+      _print_prog github "Logging you out"
       gh auth logout
       echo
     fi
   fi
 
-  _print_lib github "Logging you into GitHub"
+  _print_prog github "Logging you into GitHub"
   _print_notice "During the browser confirmation step, make sure you login"
   _print_notice "using your ${FG_CYAN}{{ .github_user }}${RESET} username!"
 
@@ -77,7 +77,7 @@ key_title=$(networksetup -getcomputername)
 {{ end }}
 key_title="${key_title:-{{ .chezmoi.fqdnHostname }}}"
 key_title="${ssh_key_name}.pub (${key_title})"
-_print_lib github "Uploading public key: $key_title"
+_print_prog github "Uploading public key: $key_title"
 gh ssh-key add "$ssh_key_file.pub" --type authentication --title "$key_title"
 
 echo

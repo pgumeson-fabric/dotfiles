@@ -104,7 +104,7 @@ function _print_skipping() {
   echo -e "${FG_YELLOW}[skipping]${RESET} ${1:-}"
 }
 
-function _print_lib() {
+function _print_prog() {
   echo -e "${FG_MAGENTA}[$1]${RESET} $2"
 }
 

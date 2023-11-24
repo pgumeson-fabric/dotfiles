@@ -8,11 +8,11 @@ while IFS= read -r line; do
   if [[ $plugin && $version ]]; then
     echo
     if ! grep -q $plugin <<< "$plugins" ; then
-      _print_lib asdf "adding $plugin plugin"
+      _print_prog asdf "adding $plugin plugin"
       asdf plugin-add $plugin
       [ $? -ne 0 ] && continue
     else
-      _print_lib asdf "using $plugin plugin"
+      _print_prog asdf "using $plugin plugin"
     fi
 
     local pkgx_dev_enabled=false
@@ -25,7 +25,7 @@ while IFS= read -r line; do
     if [ $? -ne 0 ]; then
       local versions="$(asdf list all $plugin)"
       if [[ "$version" = "system" ]]; then
-        _print_lib asdf "Falling back on system $plugin"
+        _print_prog asdf "Falling back on system $plugin"
       elif grep -q $version <<< "$versions" ; then
         # Turn pkgx dev off before installs
         if [[ "$pkgx_dev_enabled" = "true" && "$disabled_pkgx_dev" = "false" ]]; then
@@ -35,15 +35,15 @@ while IFS= read -r line; do
         fi
 
         if [[ "{{ .dir }}" = "$HOME" ]]; then
-          _print_lib asdf "installing $plugin $version"
+          _print_prog asdf "installing $plugin $version"
           asdf install $plugin $version
           _print_ok
         else
-          _print_lib asdf "This project requires $plugin $version"
+          _print_prog asdf "This project requires $plugin $version"
           _prompt -p "Install? [Y|n] " -d "Y" response
           if [[ $response =~ ^(y|yes|Y) ]]; then
             echo
-            _print_lib asdf "installing $plugin $version"
+            _print_prog asdf "installing $plugin $version"
             asdf install $plugin $version
 
             echo
@@ -61,7 +61,7 @@ while IFS= read -r line; do
         _print_warn "No compatible version found for $plugin $version"
       fi
     else
-      _print_lib asdf "$plugin $version already installed"
+      _print_prog asdf "$plugin $version already installed"
     fi
 
     # Install any bundler version in Gemfile.lock

@@ -28,33 +28,33 @@ fi
 
 # pkgx installs
 if [ ! -x "$HOME/.local/bin/java" ];then
-  _print_lib pkgx "installing openjdk.org@latest"
+  _print_prog pkgx "installing openjdk.org@latest"
   pkgx install openjdk.org@latest
 fi
 if [ ! -x "$HOME/.local/bin/go" ];then
-  _print_lib pkgx "installing go.dev@latest"
+  _print_prog pkgx "installing go.dev@latest"
   pkgx install go.dev@latest
 fi
 
 if [ ! -x "$HOME/.local/bin/node" ];then
-  _print_lib pkgx "installing nodejs.org@latest"
+  _print_prog pkgx "installing nodejs.org@latest"
   pkgx install nodejs.org@latest
   pkgx node -v
 fi
 if [ ! -x "$HOME/.local/bin/npm" ]; then
-  _print_lib pkgx "installing npmjs.com@latest"
+  _print_prog pkgx "installing npmjs.com@latest"
   pkgx install npmjs.com@latest
 fi
 
 if [ ! -x "$HOME/.local/bin/ruby" ]; then
-  _print_lib pkgx "installing ruby-lang.org@latest"
+  _print_prog pkgx "installing ruby-lang.org@latest"
   pkgx install ruby-lang.org@latest
   pkgx ruby -v
 fi
 if [ ! -x "$HOME/.local/bin/gem" ]; then
-  _print_lib pkgx "installing rubygems.org@latest"
+  _print_prog pkgx "installing rubygems.org@latest"
   pkgx install rubygems.org@latest
-  _print_lib pkgx "installing bundler"
+  _print_prog pkgx "installing bundler"
   pkgx gem install bundler
 fi
 

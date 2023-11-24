@@ -54,10 +54,16 @@ Library/Application Support/Code/User/settings.json
 .local/bin/bundle
 "
 
-cd $HOME
+cd "{{ .chezmoi.homeDir }}"
 
 if [[ ! -d "$backup_dir" ]]; then
   mkdir "$backup_dir"
+fi
+
+# TODO: remove when chezmoi run_once bug fixed
+if [[ -f "$backup_dir/.keep" || -f ".ssh/config.d/.keep" ]]; then
+  cd -
+  exit 0
 fi
 
 _print_info "Since this is the first chezmoi run, we're going to back up all the"

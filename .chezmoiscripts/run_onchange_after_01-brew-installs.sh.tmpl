@@ -26,15 +26,15 @@ if ! command -v brew &> /dev/null; then
 fi
 
 echo
-_print_lib homebrew "updating..."
+_print_prog homebrew "updating..."
 brew update
 
 echo
-_print_lib homebrew "bundling..."
+_print_prog homebrew "bundling..."
 brew bundle --file="$HOME/Brewfile"
 
 echo
-_print_lib homebrew "removing unused dependencies..."
+_print_prog homebrew "removing unused dependencies..."
 brew autoremove
 
 echo
