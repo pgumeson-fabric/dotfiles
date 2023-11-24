@@ -9,7 +9,7 @@ export GIT_EDITOR="{{ .editor }}"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=20000
 SAVEHIST=500000
 
@@ -116,5 +116,5 @@ alias lh="lsd -1ad .*"  # list only hidden files
 alias diff="diff --color=always --suppress-common-lines"
 
 if [[ -o login ]]; then
-  source ~/.config/zsh/login_checks
+  source "$HOME/.config/zsh/login_checks"
 fi
