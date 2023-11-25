@@ -1,7 +1,6 @@
 #! /usr/bin/env zsh
 
 {{ template "printers.zsh" }}
-{{ template "keep_in_dock.zsh" }}
 
 _print_running_script "$0"
 
@@ -18,10 +17,6 @@ set -euo pipefail
       sudo -p "OSX password for %p:" ln -s /Users /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Users
     fi
   fi
-
-  # Keep kitty in dock
-  keep_in_dock "kitty"
-  killall Dock &> /dev/null
 
 {{ end }}
 

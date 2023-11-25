@@ -1,6 +1,7 @@
 #! /usr/bin/env zsh
 
 {{ template "printers.zsh" }}
+{{ template "keep_in_dock.zsh" }}
 
 _print_running_script "$0"
 
@@ -11,6 +12,12 @@ set -euo pipefail
 # Kitty
 _print_installing "kitty"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+
+{{ if eq .chezmoi.os "darwin" }}
+  # Keep kitty in dock
+  keep_in_dock "kitty"
+  killall Dock &> /dev/null
+{{ end }}
 
 echo
 _print_ok
