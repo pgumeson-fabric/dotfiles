@@ -22,7 +22,7 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 1. Optional [Neovim](https://neovim.io) configuration for vim users
 
 #### Finally, it installs the [kitty terminal](https://sw.kovidgoyal.net/kitty):cat: and configures your `zsh` shell to look and function like this:
-![session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/95e65c2e-62f5-4bf8-9e76-1be7c2bf8288)
+![pkgx-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/f26f8459-cdec-4f7e-97ad-53d383b8d7a9)
 
 Of course, all these settings are totally customizable. But this `dotfiles` repo serves as a great starting point.
 
@@ -57,26 +57,26 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin init --apply pgumeson-fabri
 > If something goes wrong during the installation, simply re-run the above command.
 
 ### 3. Follow the prompts
-Chezmoi will prompt you for a few things, like your git email address and your preferred text editor (`VSCode`, `Neovim`, etc.). It will then walk you through all the installation steps and use those saved configs to setup everything customized for you.
+Chezmoi will prompt you for a few things, like your email address for git commits and your preferred text editor (`VSCode`, `Neovim`, etc.). It will then walk you through all the installation steps and use those saved configs to setup everything customized for you.
 
 ### 4. That's it! :sparkles:
-When you're finished, all you have to do is open a new `kitty` terminal and your new .zshrc will be loaded with your settings:cat:.
+When you're finished, all you have to do is open a new `kitty` terminal and your new .zshrc will be loaded with your settings. :cat:
 
 <br>
 
 > [!IMPORTANT]
 > If on chezmoi's first run, the installation detects that you have files in your home directory that would be overwritten,
-> you will be prompted to back them up to your `~/.dotfilesbackups` directory. That way you can always restore specific files, or go
-> all the way back to the way things were.
+> you will be prompted to back them up to your `~/.dotfilesbackups` directory. That way you can always restore specific files,
+> or go all the way back to the way things were.
 
 ![backup-home](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/baf95ee9-ac4d-41fb-969e-c20e0f7acede)
 
 <br>
 
 > [!NOTE]
-> During the initial installation you will be guided through the process of generationg your SSH keypair and uploading the public key to your GitHub account.
-> **This will not overwrite or affect any existing SSH keys you currently have**. However, if you current SSH key uses an older encryption method like `rsa`
-> insted of `ed25519`, then you should delete your older keys from your GitHub account.:key:
+> During the initial installation you will be guided through the process of generationg your SSH keypair and uploading the public key to your GitHub account.<br>
+> **This will not overwrite or affect any existing SSH keys you currently have**!<br>
+> However, if you current SSH key uses an older encryption method like `rsa` insted of `ed25519`, then you should delete your older keys from your GitHub account.:key:
 
 ![ssh-keygen](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2236f6bf-2584-420b-99b2-dea7779d6450)
 
@@ -85,7 +85,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 ![github-key](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/caa19057-7b8b-4cf4-ac87-752b59b19967)
 
 > [!IMPORTANT]
-> Of course it will use your `user` and `laptop` name for the public key title, not mine:name_badge:
+> Of course it will use your `user` and `laptop` name for the public key title, not mine :name_badge:
 
 <br>
 
@@ -95,29 +95,18 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
 
-```shell
-$ cd my-project
-$ echo "3.2.2" > .ruby-version
-$ echo "21.2.0" > .node-version
-$ dev
-
-...installs...
-env +ruby-lang.org@3.2.2 +nodejs.org@21.2.0 +git-scm.org
-```
+![pkgx-dev](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/a8872ddf-fb14-436a-b3de-3ea045affb05)
 
 > [!NOTE]
-> Packages are only installed to your path for the current project! :purple_heart:
+> Pkgx packages are only installed to your path for the current project! :purple_heart:<br>
 > See: https://docs.pkgx.sh/using-dev/dev
 
 ## asdf
 
 For older packages that `pkgx` does not yet provide, we use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions` and they will be available when you `cd` into the project.
 
-```shell
-$ cd my-project
-$ echo "ruby 2.7.6" > .tool-versions
-$ cd .  # to trigger asdf install
-```
+![asdf-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/e792c37e-3c6b-4637-bf8b-5d02741bf1f6)
+
 
 # Chezmoi Usage
 
@@ -159,7 +148,7 @@ Read more in the [Hooks README.md](https://github.com/pgumeson-fabric/dotfiles/t
 
 # Contributing
 
-Let me know if you are interested in submitting PRs and I'll add you as a contributor:nerd_face:
+Let me know if you are interested in submitting PRs and I'll add you as a contributor. :nerd_face:
 
 ### Wishlist
 - [x] Backup home directory on first run
