@@ -92,7 +92,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 ## pkgx
 
-With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
+With [pkgx](https://pkgx.sh), simply run the `dev` command to let pkgx know the current directory is a project. It will try to figure out all the dependencies based on the contents of the directory. You can also create a file called `pkgx.yaml` to explicitly define dependencies to be instsalled and `ENV` variables to be set.
 
 ![pkgx-dev](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/a8872ddf-fb14-436a-b3de-3ea045affb05)
 
@@ -102,7 +102,7 @@ With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
 
 ## asdf
 
-If for some reason `pkgx` does not yet provide, a package, you can use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions`.
+If for some reason `pkgx` does not yet provide a package, you can use [asdf](https://asdf-vm.com/) as a fallback. Simply create a file in your project called `.tool-versions` and define the packages [like this](https://asdf-vm.com/manage/configuration.html#tool-versions).
 
 # Chezmoi Usage
 
