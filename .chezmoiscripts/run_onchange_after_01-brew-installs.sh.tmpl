@@ -39,11 +39,11 @@ brew autoremove
 
 echo
 _print_prog homebrew "starting postgresql@15 service"
-brew services restart postgresql@15
+brew services start postgresql@15
 
 echo
 _print_prog homebrew "starting redis service"
-brew services restart redis
+brew services start redis
 
 echo
 keep_in_dock "Figma"
