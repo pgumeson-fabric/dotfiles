@@ -12,6 +12,7 @@ function _pkgx_chpwd() {
         echo
         _print_installing "bundler v$symver from Gemfile.lock"
         result=$(pkgx gem install bundler -v ${symver})
+        echo
         _print_ok "$result"
       fi
     fi

@@ -3,3 +3,4 @@ BUNDLE_PATH: "{{ .chezmoi.homeDir }}/.gem"
 {{ if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
 BUNDLE_BUILD__FFI: "--enable-libffi-alloc"
 {{ end -}}
+BUNDLE_BUILD__PG: "--with-pg-config={{ .homebrew_prefix }}/opt/postgresql@15/bin/pg_config"

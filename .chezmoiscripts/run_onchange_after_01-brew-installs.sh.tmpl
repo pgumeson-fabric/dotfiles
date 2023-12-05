@@ -38,6 +38,14 @@ _print_prog homebrew "removing unused dependencies..."
 brew autoremove
 
 echo
+_print_prog homebrew "starting postgresql@15 service"
+brew services restart postgresql@15
+
+echo
+_print_prog homebrew "starting redis service"
+brew services restart redis
+
+echo
 keep_in_dock "Figma"
 keep_in_dock "Postman"
 keep_in_dock "Visual Studio Code"
