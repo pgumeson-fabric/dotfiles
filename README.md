@@ -13,9 +13,8 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 #### This `dotfiles` repo will do the following:
 
 1. Installs [Homebrew](https://brew.sh/) and bundles your [Brewfile](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl) :beer:
-1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew
-1. Installs [asdf](https://asdf-vm.com/) and the Ruby:small_red_triangle: plugin (for managing Ruby versions not yet in pkgx)
-1. Configures [direnv](https://direnv.net) for setting project specific PATH and ENV vars in an `.envrc` file
+1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew, to replace the need for `rvm`, `rbenv`, `asdf`, `fvm`, etc.
+1. Installs [asdf](https://asdf-vm.com/) as a fallback for anything not in pkgx.
 1. Generates your SSH keypair and uploads your public key to your GitHub account :octocat:
 1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L61-L97)
 1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt :rocket:
@@ -103,10 +102,7 @@ With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
 
 ## asdf
 
-For older packages that `pkgx` does not yet provide, we use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions` and they will be available when you `cd` into the project.
-
-![asdf-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/e792c37e-3c6b-4637-bf8b-5d02741bf1f6)
-
+If for some reason `pkgx` does not yet provide, a package, you can use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions`.
 
 # Chezmoi Usage
 
