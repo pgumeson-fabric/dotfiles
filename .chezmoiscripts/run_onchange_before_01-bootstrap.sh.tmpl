@@ -9,7 +9,14 @@ echo -e "\n${FG_YELLOW}[running script]${RESET} $0\n"
 
 set -euo pipefail
 
+# Copy .zsh_history to custom HISTFILE
+if [[ -f "{{ .chezmoi.homeDir }}/.zsh_history" && ! -f "{{ .chezmoi.homeDir }}/.zsh_history_extended" ]]; then
+  _print_running "cp .zsh_history to .zsh_history_extended"
+  cp "{{ .chezmoi.homeDir }}/.zsh_history" "{{ .chezmoi.homeDir }}/.zsh_history_extended"
+fi
+
 # Kitty
+echo
 _print_installing "kitty"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
