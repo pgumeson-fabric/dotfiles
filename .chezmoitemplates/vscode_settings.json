@@ -23,7 +23,7 @@
   "[json]": {
       "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "editor.accessibilitySupport": "off",
+  "editor.accessibilitySupport": false,
   "redhat.telemetry.enabled": false,
   "editor.renderControlCharacters": false,
   "[xml]": {
