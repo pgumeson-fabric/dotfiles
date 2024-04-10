@@ -65,7 +65,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 > [!IMPORTANT]
 > If on chezmoi's first run, the installation detects that you have files in your home directory that would be overwritten,
-> you will be prompted to back them up to your `~/.dotfilesbackups` directory. That way you can always restore specific files,
+> you will be prompted to back them up to your `~/.dotfilebackups` directory. That way you can always restore specific files,
 > or go all the way back to the way things were.
 
 ![backup-home](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/baf95ee9-ac4d-41fb-969e-c20e0f7acede)

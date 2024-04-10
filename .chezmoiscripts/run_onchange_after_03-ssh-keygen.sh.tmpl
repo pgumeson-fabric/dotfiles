@@ -40,7 +40,7 @@ done
 while true; do
   resp=$(gh auth status 2>&1)
   if [ $? -eq 0 ]; then
-    if [[ "$resp" =~ "Logged in to github.com as {{ .github_user }} " ]]; then
+    if [[ "$resp" =~ "Logged in to github.com .* {{ .github_user }} " ]]; then
       _print_ok "Logged into github as ${FG_CYAN}{{ .github_user }}${RESET}!"
       break
     else
@@ -59,8 +59,8 @@ while true; do
   gh auth login -h github.com -p ssh -s write:public_key -w # -s admin:public_key
   resp=$(gh auth status 2>&1)
   echo
-  if ! [[ "$resp" =~ "Logged in to github.com as {{ .github_user }} " ]]; then
-    _print_error "Oops, something went wrong."
+  if ! [[ "$resp" =~ "Logged in to github.com .* {{ .github_user }} " ]]; then
+    _print_error "Oops, something went wrong.\n\n$resp"
     _prompt -p "Try again? [Y|n] " -d "Y" resp
     if [[ $resp =~ ^(n|no|N) ]]; then
       echo
