@@ -4,3 +4,4 @@ BUNDLE_PATH: "{{ .chezmoi.homeDir }}/.gem"
 BUNDLE_BUILD__FFI: "--enable-libffi-alloc"
 {{ end -}}
 BUNDLE_BUILD__PG: "--with-pg-config={{ .homebrew_prefix }}/opt/postgresql@15/bin/pg_config"
+BUNDLE_BUILD__PG: "--with-cflags=-Wno-incompatible-function-pointer-types"
