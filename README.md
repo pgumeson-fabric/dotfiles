@@ -35,6 +35,13 @@ Of course, all these settings are totally customizable. But this `dotfiles` repo
 > process of installing xcode command line tools (if not already installed).
 > Otherwise run `xcode-select --install`.
 
+3. Finally, if you have other package managers (such as `rvm` or `rbenv`) installed, they may conflict with `pkgx`.
+The install script will take care of removing them, but just remember not to reinstall them or things may break in
+unexpected ways :bomb:
+
+> [!IMPORTANT]
+> RVM is very invasive, so after uninstalling with `rvm implode`, you may need to logout and login to OS X to disable RVM's `cd` shell hooks 😐
+
 ## Prerequisites on Linux
 
 Some linux support [already in place](https://github.com/pgumeson-fabric/dotfiles/blob/main/.chezmoi.toml.tmpl#L78-L79), but not tested.

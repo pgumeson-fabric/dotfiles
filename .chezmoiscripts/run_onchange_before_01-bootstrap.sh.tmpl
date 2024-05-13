@@ -9,6 +9,14 @@ echo -e "\n${FG_YELLOW}[running script]${RESET} $0\n"
 
 set -euo pipefail
 
+# remove rvm if installed
+if type rvm > /dev/null 2>&1; then
+  _print_info "An installation of RVM was deteced on your system which would conflict"
+  _print_info "with PKGX's Ruby installation. Follow the prompts to remove RVM"
+  _print_info "and your install will resume."
+  rvm implode
+fi
+
 # Copy .zsh_history to custom HISTFILE
 if [[ -f "{{ .chezmoi.homeDir }}/.zsh_history" && ! -f "{{ .chezmoi.homeDir }}/.zsh_history_extended" ]]; then
   _print_running "cp .zsh_history to .zsh_history_extended"

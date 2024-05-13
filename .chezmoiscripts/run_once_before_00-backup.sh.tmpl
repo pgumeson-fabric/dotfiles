@@ -43,6 +43,8 @@ Library/Application Support/Code/User/settings.json
 .asdf
 .pkgx
 .gem
+.rbenv
+.rvmrc
 .local/bin/java
 .local/bin/go
 .local/bin/java
@@ -103,6 +105,14 @@ if [[ $response =~ ^(y|yes|Y) ]]; then
   _prompt -c -p "Got it!"
 else
   _print_skipping "backup"
+fi
+
+echo
+if type rvm > /dev/null 2>&1; then
+  _print_info "An installation of RVM was deteced on your system which would conflict"
+  _print_info "with PKGX's Ruby installation. Follow the prompts to remove RVM"
+  _print_info "and your install will resume."
+  rvm implode
 fi
 
 echo
