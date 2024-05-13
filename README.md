@@ -37,7 +37,7 @@ Of course, all these settings are totally customizable. But this `dotfiles` repo
 
 ## Prerequisites on Linux
 
-Some linux support [already in place](https://github.com/pgumeson-fabric/dotfiles/blob/main/.chezmoi.toml.tmpl#L72-L82), but not tested.
+Some linux support [already in place](https://github.com/pgumeson-fabric/dotfiles/blob/main/.chezmoi.toml.tmpl#L78-L79), but not tested.
 
 <br>
 
