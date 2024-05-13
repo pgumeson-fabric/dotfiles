@@ -1,4 +1,4 @@
-# Zipnosis Dotfiles
+# Fabric Dotfiles
 
 Maintained with https://chezmoi.io
 
