@@ -7,3 +7,7 @@ gem 'rails'
 gem 'rubocop'
 gem 'rspec'
 gem 'solargraph'  # for vim lsp plugins
+
+{{- if eq .use_flutter "true" }}
+gem 'cocoapods'
+{{ end }}
