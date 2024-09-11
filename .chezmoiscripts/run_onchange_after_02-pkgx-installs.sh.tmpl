@@ -58,11 +58,11 @@ if [ ! -x "$HOME/.local/bin/gem" ]; then
 fi
 
 # fix pkgx ruby linking issue
-if [ ! -L /opt/ruby-lang.org ]; then
-  echo
-  _print_symlinking "$HOME/.pkgx/ruby-lang.org" "/opt/ruby-lang.org"
-  sudo -p "Password for %p:" ln -s "$HOME/.pkgx/ruby-lang.org" /opt/ruby-lang.org
-fi
+# if [ ! -L /opt/ruby-lang.org ]; then
+#   echo
+#   _print_symlinking "$HOME/.pkgx/ruby-lang.org" "/opt/ruby-lang.org"
+#   sudo -p "Password for %p:" ln -s "$HOME/.pkgx/ruby-lang.org" /opt/ruby-lang.org
+# fi
 
 echo
 _print_ok
