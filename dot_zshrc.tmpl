@@ -58,12 +58,6 @@ if command -v pkgx &> /dev/null; then
   source "$HOME/.config/pkgx/hooks.zsh"
 fi
 
-# direnv (until pkgx env feature is fixed)
-if command -v direnv &> /dev/null; then
-  export DIRENV_LOG_FORMAT=""
-  eval "$(direnv hook zsh)"
-fi
-
 # TODO: use pkgx postgres instead
 if [ -d "{{ .homebrew_prefix }}/opt/postgresql@15/bin" ]; then
   path[1,0]="{{ .homebrew_prefix }}/opt/postgresql@15/bin"
