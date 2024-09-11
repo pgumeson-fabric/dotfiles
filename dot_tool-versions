@@ -1,6 +1,5 @@
-# asdf global defaults
-# https://asdf-vm.com/manage/configuration.html#tool-versions
+# WARNING!
+# Using asdf with pkgx can cause issues
 #
 # Favor instead: 'pkgx install name@version'
 # https://docs.pkgx.sh/using-pkgx/pkgx-install
-#

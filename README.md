@@ -14,7 +14,6 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 
 1. Installs [Homebrew](https://brew.sh/) and bundles your [Brewfile](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl) :beer:
 1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew, to replace the need for `rvm`, `rbenv`, `asdf`, `fvm`, etc.
-1. Installs [asdf](https://asdf-vm.com/) as a fallback for anything not in pkgx.
 1. Generates your SSH keypair and uploads your public key to your GitHub account :octocat:
 1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L61-L97)
 1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt :rocket:
@@ -107,10 +106,6 @@ With [pkgx](https://pkgx.sh), simply run the `dev` command to let pkgx know the 
 > Pkgx packages are only installed to your path for the current project! :purple_heart:<br>
 > See: https://docs.pkgx.sh/using-dev/dev
 
-## asdf
-
-If for some reason `pkgx` does not yet provide a package, you can use [asdf](https://asdf-vm.com/) as a fallback. Simply create a file in your project called `.tool-versions` and define the packages [like this](https://asdf-vm.com/manage/configuration.html#tool-versions).
-
 # Chezmoi Usage
 
 Once the installer has finished running, `chezmoi` will be in your PATH and you can run commands like `chezmoi update -v`, which will pull down the latest changes from git and apply them to your home directory. Chezmoi is fully idempotent, so it will only install new packages or apply updates that have changed since your last run.
@@ -157,7 +152,7 @@ Let me know if you are interested in submitting PRs and I'll add you as a contri
 - [x] Backup home directory on first run
 - [x] Customization hooks :hook:
 - [ ] Auto-clone our projects to local projects dir and configure
-- [ ] Sunset asdf once pkgx supports all the package versions we're using
+- [x] Sunset asdf once pkgx supports all the package versions we're using
 - [ ] Fish shell support :fish:
 - [ ] Opt-in React tools and environment
 - [ ] [Opt-in Flutter tools and environment](https://github.com/pgumeson-fabric/dotfiles/pull/1) :bird:
