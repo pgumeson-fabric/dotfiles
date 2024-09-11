@@ -1,5 +1,0 @@
-# WARNING!
-# Using asdf with pkgx can cause issues
-#
-# Favor instead: 'pkgx install name@version'
-# https://docs.pkgx.sh/using-pkgx/pkgx-install

@@ -17,7 +17,7 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 1. Generates your SSH keypair and uploads your public key to your GitHub account :octocat:
 1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L61-L97)
 1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt :rocket:
-1. Optional [Neovim](https://neovim.io) configuration for vim users
+1. Opt-in [LazyVim](https://www.lazyvim.org) configuration for vim users :zzz:
 
 #### Finally, it installs the [kitty terminal](https://sw.kovidgoyal.net/kitty):cat: and configures your `zsh` shell to look and function like this:
 ![pkgx-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/f26f8459-cdec-4f7e-97ad-53d383b8d7a9)
@@ -34,7 +34,7 @@ Of course, all these settings are totally customizable. But this `dotfiles` repo
 > process of installing xcode command line tools (if not already installed).
 > Otherwise run `xcode-select --install`.
 
-3. Finally, if you have other package managers (such as `rvm` or `rbenv`) installed, they may conflict with `pkgx`.
+3. Finally, if you have other package managers (such as `rvm`, `rbenv` or `asdf`) installed, they may conflict with `pkgx`.
 The install script will take care of removing them, but just remember not to reinstall them or things may break in
 unexpected ways :bomb:
 
@@ -157,5 +157,5 @@ Let me know if you are interested in submitting PRs and I'll add you as a contri
 - [ ] Opt-in React tools and environment
 - [ ] [Opt-in Flutter tools and environment](https://github.com/pgumeson-fabric/dotfiles/pull/1) :bird:
 - [ ] Secure retreival of files from passowrd manager :closed_lock_with_key:
-- [ ] LazyVim config :zzz:
+- [x] LazyVim config :zzz:
 - [ ] Opt-in for Emacs editor
