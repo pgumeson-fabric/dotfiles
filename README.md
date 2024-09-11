@@ -81,7 +81,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 > [!NOTE]
 > During the initial installation you will be guided through the process of generationg your SSH keypair and uploading the public key to your GitHub account.<br>
 > **This will not overwrite or affect any existing SSH keys you currently have**!<br>
-> However, if you current SSH key uses an older encryption method like `rsa` insted of `ed25519`, then you should delete your older keys from your GitHub account.:key:
+> However, if you current SSH key uses an older encryption method like `rsa` insted of `ed25519`, then you should delete your older keys from your GitHub account. :key:
 
 ![ssh-keygen](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2236f6bf-2584-420b-99b2-dea7779d6450)
 
