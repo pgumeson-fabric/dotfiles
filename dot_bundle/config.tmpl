@@ -11,6 +11,6 @@ BUNDLE_BUILD__NIO4R: "--with-cflags=-Wno-incompatible-pointer-types"
 BUNDLE_BUILD__OJ: "--with-cflags=-Wno-incompatible-pointer-types"
 BUNDLE_BUILD__PG_CONNECTION: "--with-cflags=-Wno-incompatible-pointer-types"
 BUNDLE_BUILD__POSIX___SPAWN: "--with-cflags=-Wno-incompatible-function-pointer-types"
-BUNDLE_BUILD__SQLITE3: "--with-sqlite-cflags='-DSQLITE_DEFAULT_CACHE_SIZE=9999 -DSQLITE_DEFAULT_PAGE_SIZE=4444'"
-BUNDLE_BUILD__SQLITE3: "--with-cflags=-Wno-incompatible-function-pointer-types"
+BUNDLE_BUILD__SQLITE3: "--with-cflags='-Wno-incompatible-function-pointer-types -Wno-int-conversion'"
 BUNDLE_BUILD__CURB: "--with-cflags=-Wno-incompatible-function-pointer-types"
+
