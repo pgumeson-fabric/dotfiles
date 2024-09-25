@@ -1,4 +1,4 @@
-# Zipnosis Dotfiles
+# Fabric Dotfiles
 
 Maintained with https://chezmoi.io
 
@@ -13,13 +13,11 @@ Read more about chezmoi here: [What does chezmoi do?](https://www.chezmoi.io/wha
 #### This `dotfiles` repo will do the following:
 
 1. Installs [Homebrew](https://brew.sh/) and bundles your [Brewfile](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl) :beer:
-1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew
-1. Installs [asdf](https://asdf-vm.com/) and the Ruby:small_red_triangle: plugin (for managing Ruby versions not yet in pkgx)
-1. Configures [direnv](https://direnv.net) for setting project specific PATH and ENV vars in an `.envrc` file
+1. Installs and configures [pkgx](https://pkgx.sh), the new package manager from the creator of Homebrew, to replace the need for `rvm`, `rbenv`, `asdf`, `fvm`, etc.
 1. Generates your SSH keypair and uploads your public key to your GitHub account :octocat:
 1. Installs VSCode and [the best extensions](https://github.com/pgumeson-fabric/dotfiles/blob/main/Brewfile.tmpl#L61-L97)
 1. Configures [starship cross-shell prompt](https://starship.rs) as your default prompt :rocket:
-1. Optional [Neovim](https://neovim.io) configuration for vim users
+1. Opt-in [LazyVim](https://www.lazyvim.org) configuration for vim users :zzz:
 
 #### Finally, it installs the [kitty terminal](https://sw.kovidgoyal.net/kitty):cat: and configures your `zsh` shell to look and function like this:
 ![pkgx-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/f26f8459-cdec-4f7e-97ad-53d383b8d7a9)
@@ -36,9 +34,16 @@ Of course, all these settings are totally customizable. But this `dotfiles` repo
 > process of installing xcode command line tools (if not already installed).
 > Otherwise run `xcode-select --install`.
 
+3. Finally, if you have other package managers (such as `rvm`, `rbenv` or `asdf`) installed, they may conflict with `pkgx`.
+The install script will take care of removing them, but just remember not to reinstall them or things may break in
+unexpected ways :bomb:
+
+> [!IMPORTANT]
+> RVM is very invasive, so after uninstalling with `rvm implode`, you may need to logout and login to OS X to disable RVM's `cd` shell hooks 😐
+
 ## Prerequisites on Linux
 
-Some linux support [already in place](https://github.com/pgumeson-fabric/dotfiles/blob/main/.chezmoi.toml.tmpl#L72-L82), but not tested.
+Some linux support [already in place](https://github.com/pgumeson-fabric/dotfiles/blob/main/.chezmoi.toml.tmpl#L78-L79), but not tested.
 
 <br>
 
@@ -66,7 +71,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 > [!IMPORTANT]
 > If on chezmoi's first run, the installation detects that you have files in your home directory that would be overwritten,
-> you will be prompted to back them up to your `~/.dotfilesbackups` directory. That way you can always restore specific files,
+> you will be prompted to back them up to your `~/.dotfilebackups` directory. That way you can always restore specific files,
 > or go all the way back to the way things were.
 
 ![backup-home](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/baf95ee9-ac4d-41fb-969e-c20e0f7acede)
@@ -76,7 +81,7 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 > [!NOTE]
 > During the initial installation you will be guided through the process of generationg your SSH keypair and uploading the public key to your GitHub account.<br>
 > **This will not overwrite or affect any existing SSH keys you currently have**!<br>
-> However, if you current SSH key uses an older encryption method like `rsa` insted of `ed25519`, then you should delete your older keys from your GitHub account.:key:
+> However, if you current SSH key uses an older encryption method like `rsa` insted of `ed25519`, then you should delete your older keys from your GitHub account. :key:
 
 ![ssh-keygen](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/2236f6bf-2584-420b-99b2-dea7779d6450)
 
@@ -93,20 +98,13 @@ When you're finished, all you have to do is open a new `kitty` terminal and your
 
 ## pkgx
 
-With [pkgx](https://pkgx.sh), installing the project dependencies is as easy as:
+With [pkgx](https://pkgx.sh), simply run the `dev` command to let pkgx know the current directory is a project. It will try to figure out all the dependencies based on the contents of the directory. You can also create a file called `pkgx.yaml` to explicitly define dependencies to be instsalled and `ENV` variables to be set.
 
 ![pkgx-dev](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/a8872ddf-fb14-436a-b3de-3ea045affb05)
 
 > [!NOTE]
 > Pkgx packages are only installed to your path for the current project! :purple_heart:<br>
 > See: https://docs.pkgx.sh/using-dev/dev
-
-## asdf
-
-For older packages that `pkgx` does not yet provide, we use [asdf](https://asdf-vm.com/) as a fallback. Simply define the package in a file called `.tool-versions` and they will be available when you `cd` into the project.
-
-![asdf-session](https://github.com/pgumeson-fabric/dotfiles/assets/145386658/e792c37e-3c6b-4637-bf8b-5d02741bf1f6)
-
 
 # Chezmoi Usage
 
@@ -154,10 +152,10 @@ Let me know if you are interested in submitting PRs and I'll add you as a contri
 - [x] Backup home directory on first run
 - [x] Customization hooks :hook:
 - [ ] Auto-clone our projects to local projects dir and configure
-- [ ] Sunset asdf once pkgx supports all the package versions we're using
+- [x] Sunset asdf once pkgx supports all the package versions we're using
 - [ ] Fish shell support :fish:
 - [ ] Opt-in React tools and environment
 - [ ] [Opt-in Flutter tools and environment](https://github.com/pgumeson-fabric/dotfiles/pull/1) :bird:
 - [ ] Secure retreival of files from passowrd manager :closed_lock_with_key:
-- [ ] LazyVim config :zzz:
+- [x] LazyVim config :zzz:
 - [ ] Opt-in for Emacs editor

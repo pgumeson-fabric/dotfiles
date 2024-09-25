@@ -19,13 +19,13 @@
       "editor.suggest.snippetsPreventQuickSuggestions": false,
       "editor.suggestSelection": "first",
       "editor.tabCompletion": "onlySnippets",
-      "editor.wordBasedSuggestions": false
+      "editor.wordBasedSuggestions": "off"
   },
   {{- end }}
   "[json]": {
       "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "editor.accessibilitySupport": "off",
+  "editor.accessibilitySupport": false,
   "redhat.telemetry.enabled": false,
   "editor.renderControlCharacters": false,
   "[xml]": {

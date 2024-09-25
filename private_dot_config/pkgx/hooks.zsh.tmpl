@@ -8,10 +8,11 @@ function _pkgx_chpwd() {
     if [[ -f "$PWD/Gemfile.lock" && ! -f "$PWD/.tool-versions" ]]; then
       _printers
       symver="$(grep -A 1 "BUNDLED WITH" $PWD/Gemfile.lock | tail -n 1 | awk '{$1=$1};1')"
-      if [[ -n "$symver" && $(pkgx gem info -i -v ${symver} bundler) = 'false' ]]; then
+      if [[ -n "$symver" && $(gem info -i -v ${symver} bundler) = 'false' ]]; then
         echo
         _print_installing "bundler v$symver from Gemfile.lock"
-        result=$(pkgx gem install bundler -v ${symver})
+        result=$(gem install bundler -v ${symver})
+        echo
         _print_ok "$result"
       fi
     fi
@@ -33,10 +34,10 @@ chpwd_functions=(${chpwd_functions[@]} "_pkgx_chpwd")
 #     if [[ -f "$PWD/Gemfile.lock" ]]; then
 #       symver="$(grep -A 1 "BUNDLED WITH" $PWD/Gemfile.lock | tail -n 1 | awk '{$1=$1};1')"
 #       _print_debug "Gemfile bundled with v$symver"
-#       if [[ -n "$symver" && $(pkgx gem info -i -v ${symver} bundler) = 'false' ]]; then
+#       if [[ -n "$symver" && $(gem info -i -v ${symver} bundler) = 'false' ]]; then
 #         echo
 #         _print_installing "bundler v$symver from Gemfile.lock"
-#         result=$(pkgx gem install bundler -v ${symver})
+#         result=$(gem install bundler -v ${symver})
 #         _print_ok "$result"
 #       fi
 #     fi
