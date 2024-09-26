@@ -26,10 +26,16 @@ if [[ "$(command -v pkgx)" != "pkgx" ]]; then
 fi
 
 # pkgx installs
+if [ ! -x "$HOME/.local/bin/make" ];then
+  _print_prog pkgx "installing gnu.org/make@latest"
+  pkgx install gnu.org/make@latest
+fi
+
 if [ ! -x "$HOME/.local/bin/java" ];then
   _print_prog pkgx "installing openjdk.org@latest"
   pkgx install openjdk.org@latest
 fi
+
 if [ ! -x "$HOME/.local/bin/go" ];then
   _print_prog pkgx "installing go.dev@latest"
   pkgx install go.dev@latest
@@ -43,6 +49,10 @@ fi
 if [ ! -x "$HOME/.local/bin/npm" ]; then
   _print_prog pkgx "installing npmjs.com@latest"
   pkgx install npmjs.com@latest
+fi
+if [ ! -x "$HOME/.local/bin/pnpm" ]; then
+  _print_prog pkgx "installing pnpm.io@latest"
+  pkgx install pnpm.io@latest
 fi
 
 if [ ! -x "$HOME/.local/bin/ruby" ]; then
