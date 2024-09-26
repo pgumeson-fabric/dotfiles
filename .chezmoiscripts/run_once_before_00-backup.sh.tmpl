@@ -34,6 +34,7 @@ local managed="
 .irbrc
 .ssh/config
 .tool-versions
+.zlogin
 .zshrc
 Brewfile
 Brewfile.lock.json
@@ -92,11 +93,18 @@ done <<<"$managed"
 
 echo
 _print_danger "The above files and directories will be overwritten!"
-_print_danger "Only choose ${BOLD}NO${RESET} if you are sure they were already"
-_print_danger "backed up, or you no longer need them."
+_print_danger "Only choose ${BOLD}NO${RESET} if you already have them"
+_print_danger "backed up somewhere, or you no longer need them."
+echo
+_print_info "Your shell aliases will also be backed up to ~/aliases.bak"
+_print_info "so you can easily reference them later."
 echo
 _prompt -p "Backup now? [Y|n] " -d "Y" response
 if [[ $response =~ ^(y|yes|Y) ]]; then
+  echo
+  _print_running "Backing up shell aliases"
+  echo "# Backed up aliases\n$(alias -L 2>&1)\n" > "$HOME/aliases.bak"
+
   echo
   _print_running "tar czvf $backup_dir/$backup_file"
   tar czvf "$backup_dir/$backup_file" "${files[@]}"
@@ -105,6 +113,7 @@ if [[ $response =~ ^(y|yes|Y) ]]; then
     cd -
     exit 1
   fi
+
   _print_ok "backup successful!"
   echo
   _print_notice "You can restore from backup by running"
