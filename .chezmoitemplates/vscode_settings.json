@@ -1,6 +1,6 @@
 {
   "editor.fontSize": 14,
-  "editor.renderWhitespace": "none",
+  "editor.renderWhitespace": "all",
   "editor.tabSize": 2,
   "terminal.external.osxExec": "Kitty.app",
   "terminal.explorerKind": "external",
