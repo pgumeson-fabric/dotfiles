@@ -36,6 +36,7 @@ brew bundle --file="$HOME/Brewfile"
 echo
 _print_prog homebrew "removing unused dependencies..."
 brew autoremove
+# brew cleanup
 
 echo
 _print_prog homebrew "starting postgresql@15 service"
