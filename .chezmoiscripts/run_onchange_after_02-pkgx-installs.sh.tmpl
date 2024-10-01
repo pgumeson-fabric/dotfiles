@@ -61,6 +61,12 @@ if [ ! -x "$HOME/.local/bin/ruby" ]; then
   pkgx ruby -v
 fi
 if [ ! -x "$HOME/.local/bin/gem" ]; then
+  if [ -f "/usr/local/bin/bundler" ]; then
+    sudo rm /usr/local/bin/bundler
+  fi
+  if [ -f "/usr/local/bin/bundle" ]; then
+    sudo rm /usr/local/bin/bundle
+  fi
   _print_prog pkgx "installing rubygems.org@latest"
   pkgx install rubygems.org@latest
   _print_prog pkgx "installing bundler"
