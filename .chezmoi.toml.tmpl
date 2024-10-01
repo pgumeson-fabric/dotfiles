@@ -18,7 +18,7 @@
 {{- if hasKey . "email" -}}
 {{-   $email = .email -}}
 {{- else if $interactive -}}
-{{-   $email = promptString "Your email (@florenceos.com)" -}}
+{{-   $email = promptString "Your email (@fabrichealth.com)" -}}
 {{- end -}}
 
 {{- /* git_email */ -}}
@@ -34,7 +34,7 @@
 {{- if hasKey . "github_user" -}}
 {{-   $github_user = .github_user -}}
 {{- else if $interactive -}}
-{{-   $github_user = promptString "Your github username (zipnosis org)" -}}
+{{-   $github_user = promptString "Your github username (CASE SENSITIVE!)" -}}
 {{- end -}}
 
 {{- /* editor */ -}}
