@@ -78,10 +78,10 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{-   $homebrew_prefix = "/home/linuxbrew/.linuxbrew" -}}
 {{- else if eq .chezmoi.os "darwin" -}}
-{{-   if eq .chezmoi.arch "x86_64" -}}
-{{-     $homebrew_prefix = "/usr/local" -}}
-{{-   else -}}
+{{-   if eq .chezmoi.arch "arm64" -}}
 {{-     $homebrew_prefix = "/opt/homebrew" -}}
+{{-   else -}}
+{{-     $homebrew_prefix = "/usr/local" -}}
 {{-   end -}}
 {{- end -}}
 
