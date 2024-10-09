@@ -62,23 +62,16 @@ if [ ! -x "$HOME/.local/bin/ruby" ]; then
 fi
 if [ ! -x "$HOME/.local/bin/gem" ]; then
   if [ -f "/usr/local/bin/bundler" ]; then
-    sudo rm /usr/local/bin/bundler
+    sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundler
   fi
   if [ -f "/usr/local/bin/bundle" ]; then
-    sudo rm /usr/local/bin/bundle
+    sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundle
   fi
   _print_prog pkgx "installing rubygems.org@latest"
   pkgx install rubygems.org@latest
   _print_prog pkgx "installing bundler"
   pkgx gem install bundler
 fi
-
-# fix pkgx ruby linking issue
-# if [ ! -L /opt/ruby-lang.org ]; then
-#   echo
-#   _print_symlinking "$HOME/.pkgx/ruby-lang.org" "/opt/ruby-lang.org"
-#   sudo -p "Password for %p:" ln -s "$HOME/.pkgx/ruby-lang.org" /opt/ruby-lang.org
-# fi
 
 echo
 _print_ok

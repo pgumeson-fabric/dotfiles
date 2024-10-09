@@ -29,6 +29,27 @@ echo
 _print_prog homebrew "updating..."
 brew update
 
+if [ -d "/Applications/Visual Studio Code.app" ]; then
+  if ! brew ls --cask visual-studio-code --versions &> /dev/null; then
+    echo
+    _print_info "Removing non-homebrew VSCode app"
+    osascript -e 'quit app "Visual Studio Code"'
+    sudo -p "OSX password for %p:" rm -rf "/Applications/Visual Studio Code.app"
+    if [ $? -ne 0 ]; then
+      _print_error "Could not remove 'Visual Studio Code' app."
+      _print_info "Try removing manually or run this script again."
+      echo
+      exit 1
+    fi
+  fi
+fi
+
+if [ -L "/usr/local/bin/code" ]; then
+  echo
+  _print_info "Removing non-homebrew VSCode symlink"
+  sudo -p "OSX password for %p:" rm -f "/usr/local/bin/code"
+fi
+
 echo
 _print_prog homebrew "bundling..."
 brew bundle --file="$HOME/Brewfile"
