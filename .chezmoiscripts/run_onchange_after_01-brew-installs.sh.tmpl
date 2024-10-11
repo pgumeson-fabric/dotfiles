@@ -29,10 +29,14 @@ echo
 _print_prog homebrew "updating..."
 brew update
 
+# Remove old fonts
+brew uninstall -f --zap font-meslo-lgs-nf font-monaco-for-powerline
+
+# Remove non-homebrew vscode
 if [ -d "/Applications/Visual Studio Code.app" ]; then
   if ! brew ls --cask visual-studio-code --versions &> /dev/null; then
     echo
-    _print_info "Removing non-homebrew VSCode app"
+    _print_info "Removing non-homebrew vscode app"
     osascript -e 'quit app "Visual Studio Code"'
     sudo -p "OSX password for %p:" rm -rf "/Applications/Visual Studio Code.app"
     if [ $? -ne 0 ]; then
