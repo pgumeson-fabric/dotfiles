@@ -5,7 +5,7 @@ function _pkgx_chpwd() {
   if type _pkgx_dev_off > /dev/null 2>&1; then
 
     # Install bundler version in Gemfile.lock
-    if [[ -f "$PWD/Gemfile.lock" && ! -f "$PWD/.tool-versions" ]]; then
+    if [ -f "$PWD/Gemfile.lock" ]; then
       _printers
       symver="$(grep -A 1 "BUNDLED WITH" $PWD/Gemfile.lock | tail -n 1 | awk '{$1=$1};1')"
       if [[ -n "$symver" && $(gem info -i -v ${symver} bundler) = 'false' ]]; then

@@ -6,7 +6,10 @@ _print_running_script "$0"
 
 set -euo pipefail
 
-## Gemfile: {{ include "Gemfile.tmpl" | sha256sum }}
+if [ ! -e "$HOME/Gemfile.lock" ];then
+  _print_running "cleaning up old Gemfile.lock"
+  rm -f "$HOME/Gemfile.lock"
+fi
 
 if ! command -v pkgx &> /dev/null; then
   _print_error "pkgx not installed"
@@ -14,15 +17,29 @@ if ! command -v pkgx &> /dev/null; then
 fi
 
 # Install default gems
-pkgx bundle -v &> /dev/null
+pkgx gem -v &> /dev/null
 if [ $? -ne 0 ]; then
-  _print_error "Oops. pkgx could not run bundle install"
-  pkgx bundle -v
+  _print_error "Oops. pkgx could not run gem install"
+  pkgx gem -v
   exit 1
 fi
 
-_print_installing "Gems for default $(pkgx ruby -v)"
-pkgx bundle install --gemfile="$HOME/Gemfile"
+path[1,0]="$HOME/.gem/bin"
+
+_print_prog gem "update --system"
+pkgx gem update --system
+
+_print_prog gem "install bundler"
+pkgx gem install --user-install --no-document --bindir "$HOME/.gem/bin" bundler
+
+_print_prog gem "install rails"
+pkgx gem install --user-install --no-document --bindir "$HOME/.gem/bin" rails
+
+_print_prog gem "install neovim"
+pkgx gem install --user-install --no-document --bindir "$HOME/.gem/bin" neovim
+
+_print_prog gem "install solargraph"
+pkgx gem install --user-install --no-document --bindir "$HOME/.gem/bin" solargraph
 
 echo
 _print_ok
