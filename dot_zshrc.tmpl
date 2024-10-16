@@ -66,10 +66,11 @@ fi
 # user paths
 path[1,0]="/usr/local/bin"
 path[1,0]="$HOME/.local/bin"
+path[1,0]="$HOME/.gem/bin"
 path[1,0]="$HOME/bin"
 
 # Fix rubygems
-export GEM_HOME=$(pkgx ruby -e 'puts Gem.user_dir')
+# export GEM_HOME=$(pkgx ruby -e 'puts Gem.user_dir')
 
 # fzf
 source $HOME/.config/fzf/key-bindings.zsh

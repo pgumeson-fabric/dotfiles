@@ -13,16 +13,29 @@ if ! command -v pkgx &> /dev/null; then
   exit 1
 fi
 
-# Install default gems
-pkgx bundle -v &> /dev/null
-if [ $? -ne 0 ]; then
-  _print_error "Oops. pkgx could not run bundle install"
-  pkgx bundle -v
-  exit 1
-fi
+# rubygems
+echo
+_print_prog gem "update --system"
+pkgx gem update --system
 
-_print_installing "Gems for default $(pkgx ruby -v)"
+echo
+_print_info "using gem $(pkgx gem -v)"
+
+echo
+_print_prog gem "install bundler"
+pkgx gem install --user-install --silent --no-document --bindir "$HOME/.gem/bin" bundler
+
+# Install default gems
+echo
+_print_info "using $(pkgx bundle -v)"
+
+echo
+_print_prog bundle "install ($(pkgx ruby -v))"
 pkgx bundle install --gemfile="$HOME/Gemfile"
+
+echo
+_print_prog bundle "binstubs --all"
+pkgx bundle binstubs --all --force --path="$HOME/.gem/bin"
 
 echo
 _print_ok
