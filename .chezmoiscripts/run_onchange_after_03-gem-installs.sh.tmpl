@@ -30,12 +30,14 @@ echo
 _print_info "using $(pkgx bundle -v)"
 
 echo
-_print_prog bundle "install ($(pkgx ruby -v))"
+_print_prog bundle "install with: $(pkgx ruby -v)"
 pkgx bundle install --gemfile="$HOME/Gemfile"
 
 echo
 _print_prog bundle "binstubs --all"
 pkgx bundle binstubs --all --force --path="$HOME/.gem/bin"
+_print_prog bundle "config --delete bin"
+pkgx bundle config --delete bin
 
 echo
 _print_ok
