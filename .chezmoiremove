@@ -1,3 +1,4 @@
+.asdfrc
 .config/asdf
 .config/asdf/hooks.zsh
 .config/kitty/default-theme.conf

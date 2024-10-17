@@ -28,7 +28,7 @@ code ~/.config/hooks/starship.toml
 
 ### kitty/overrides.conf
 
-To customize your [kitty terminal]():cat:, you can override the default config by adding a `overrides.conf` to the `~/.config/kitty` dir and modifying it.
+To customize your [kitty terminal](https://sw.kovidgoyal.net/kitty):cat:, you can override the default config by adding a `overrides.conf` to the `~/.config/kitty` dir and modifying it.
 
 ```shell
 code ~/.config/kitty/overrides.conf

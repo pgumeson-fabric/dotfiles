@@ -66,6 +66,8 @@ if [ ! -x "$HOME/.local/bin/pnpm" ]; then
   pkgx install pnpm.io@latest
 fi
 
+pkgx uninstall ruby-lang.org
+rm -rf "$HOME/.pkgx/ruby-lang.org"
 if [ ! -x "$HOME/.local/bin/ruby" ]; then
   echo
   _print_prog pkgx "installing ruby-lang.org@latest"
@@ -73,6 +75,8 @@ if [ ! -x "$HOME/.local/bin/ruby" ]; then
   pkgx ruby -v
 fi
 
+pkgx uninstall rubygems.org
+rm -rf "$HOME/.pkgx/rubygems.org"
 if [ ! -x "$HOME/.local/bin/bundle" ]; then
   echo
   if [ -f "/usr/local/bin/bundler" ]; then
