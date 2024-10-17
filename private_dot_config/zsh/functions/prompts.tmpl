@@ -1,0 +1,74 @@
+#!/usr/bin/env zsh
+
+function prompts() {
+  declare -A choices
+  local keys=()
+  local options=()
+  local presets=($(starship preset -l))
+  presets[1,0]=default
+
+  setopt shwordsplit
+  for preset in $presets; do
+    parts=(${(@s:-:)preset})
+
+    local key=
+    local passes=(first second last)
+
+    while [ -z $key ]; do
+      for pass in $passes; do
+        for part in $parts; do
+          local l=
+          case ${pass} in
+          first) l=${part[1]}
+            ;;
+          second) l=${part[$#part]}
+            ;;
+          *) l=${part[2]}
+            ;;
+          esac
+
+          if [[ -z "${keys[(r)$l]}" ]]; then
+            key=$l
+            keys+=($l)
+            break 2
+          fi
+        done
+      done
+    done
+
+    # if [ -z $key ]; then
+    #   for i in {1..$#preset}; do
+    #     local l=${preset[$i]}
+    #     echo "l ($i): $l"
+    #     [ "$l" = "-" ] && continue
+    #     if [[ -z "${keys[(r)$l]}" ]]; then
+    #       echo "does NOT contain $l"
+    #       key=$l
+    #       keys+=($l)
+    #       break 1
+    #     else
+    #       echo "CONTAINS $l"
+    #     fi
+    #   done
+    # fi
+
+    choices[$key]=$preset
+    options+=( "--choice $key:$preset" )
+  done
+
+  options=("${(@f)${options}}")
+  resp=$(kitten ask -t choices -m "Choose a prompt" --title "Set Prompt" ${options[@]})
+  unsetopt shwordsplit
+
+  key=$(printf %s "$resp" | jq -r '.response')
+  choice=${choices[$key]}
+
+  if [ "$choice" = "default" ]; then
+    rm -f "{{ .chezmoi.homeDir }}/.config/hooks/starship.toml"
+  else
+    starship preset $choice -o "{{ .chezmoi.homeDir }}/.config/hooks/starship.toml"
+  fi
+
+  # kill -SIGUSR1 $KITTY_PID &> /dev/null
+}
+prompts "$@"

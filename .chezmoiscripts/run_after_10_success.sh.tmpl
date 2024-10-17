@@ -5,6 +5,11 @@
 
 set -euo pipefail
 
+# Use our default kitty theme if not set
+if [ ! -f "$HOME/.config/kitty/current-theme.conf" ]; then
+  cp "$HOME/.config/kitty/themes/Dotfiles Default.conf" "$HOME/.config/kitty/current-theme.conf"
+fi
+
 echo
 _print_info "Chezmoi completed successfully!"
 _print_info "Don't forget to open a new terminal to load your settings."
