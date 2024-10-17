@@ -1,5 +1,6 @@
-#: Put kitty settings here that shouldn't get
+#: Put kitty settings here that should not get
 #: overriden when setting new kitty themes
 #: https://sw.kovidgoyal.net/kitty/kittens/themes/#how-it-works
 
 macos_titlebar_color background
+

@@ -26,6 +26,14 @@ cp ~/.config/starship.toml ~/.config/hooks/starship.toml
 code ~/.config/hooks/starship.toml
 ```
 
+### kitty/overrides.conf
+
+To customize your [kitty terminal]():cat:, you can override the default config by adding a `overrides.conf` to the `~/.config/kitty` dir and modifying it.
+
+```shell
+code ~/.config/kitty/overrides.conf
+```
+
 ### .ssh/config.d
 
 To add additional SSH configs, simply add additional config files to the `~/.ssh/config.d` directory. These files will be included in your final ssh config.

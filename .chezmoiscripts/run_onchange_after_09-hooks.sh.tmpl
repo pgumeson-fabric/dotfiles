@@ -1,0 +1,18 @@
+#! /usr/bin/env zsh
+
+{{ template "printers.zsh" }}
+
+_print_running_script "$0"
+
+set -euo pipefail
+
+# kitty hooks
+if [ ! -f "{{ .chezmoi.homeDir }}/.config/kitty/overrides.conf" ]; then
+  echo "#: Override settings from kitty.conf here\n" > "{{ .chezmoi.homeDir }}/.config/kitty/overrides.conf"
+fi
+if [ ! -f "$HOME/.config/kitty/current-theme.conf" ]; then
+  cp "{{ .chezmoi.homeDir }}/.config/kitty/themes/Dotfiles Default.conf" "{{ .chezmoi.homeDir }}/.config/kitty/current-theme.conf"
+fi
+
+echo
+_print_ok

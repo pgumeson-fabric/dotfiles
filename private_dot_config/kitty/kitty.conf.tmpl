@@ -1766,7 +1766,6 @@ allow_hyperlinks yes
 #: and finally you can use an arbitrary color, such as #12af59 or red.
 
 # macos_titlebar_color system
-macos_titlebar_color background
 
 #: The color of the kitty window's titlebar on macOS. A value of
 #: system means to use the default system color, light or dark can
@@ -2624,8 +2623,9 @@ italic_font      auto
 bold_italic_font auto
 # END_KITTY_FONTS
 
-# OVERRIDES
+#: THEME OVERRIDES
+include themes/overrides
+
+#: USER OVERRIDES
 include overrides.conf
 
-# HOOKS
-include "{{ .chezmoi.homeDir }}/.config/hooks/kitty.conf"
