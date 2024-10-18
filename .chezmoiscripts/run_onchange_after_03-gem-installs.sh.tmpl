@@ -25,10 +25,6 @@ echo
 _print_prog gem "install bundler"
 pkgx gem install --user-install --silent --no-document --bindir "$HOME/.gem/bin" bundler
 
-echo
-_print_prog bundle "update --bundler"
-pkgx bundle update --bundler
-
 # Install default gems
 echo
 _print_info "using $(pkgx bundle -v)"
@@ -43,6 +39,9 @@ pkgx bundle binstubs --all --force --path="$HOME/.gem/bin"
 _print_prog bundle "config --delete bin"
 pkgx bundle config --delete bin
 
+echo
+_print_prog bundle "update --bundler"
+pkgx bundle update --bundler
 
 echo
 _print_ok
