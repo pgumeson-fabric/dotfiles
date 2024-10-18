@@ -65,10 +65,12 @@ function prompts() {
 
   if [ "$choice" = "default" ]; then
     rm -f "{{ .chezmoi.homeDir }}/.config/hooks/starship.toml"
+    export STARSHIP_CONFIG="$HOME/.config/starship.toml"
   else
     starship preset $choice -o "{{ .chezmoi.homeDir }}/.config/hooks/starship.toml"
+    export STARSHIP_CONFIG="$HOME/.config/hooks/starship.toml"
   fi
 
-  # kill -SIGUSR1 $KITTY_PID &> /dev/null
+  eval "$(starship init zsh)" &> /dev/null
 }
 prompts "$@"
