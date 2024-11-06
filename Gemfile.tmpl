@@ -3,3 +3,7 @@ source 'https://rubygems.org'
 gem 'neovim'
 gem 'rails'
 gem 'solargraph'  # for vim lsp plugins
+
+{{- if eq .use_flutter "true" }}
+gem 'cocoapods'
+{{ end }}
