@@ -14,12 +14,7 @@ else
 fi
 curl -fsS https://pkgx.sh | sh
 pkgx --sync
-
-if ! command -v pkgx &> /dev/null; then
-  echo
-  _print_error "pkgx not installed"
-  exit 1
-fi
+pkgx unload
 
 # Remove binstubs not installed by pkgx
 if [ -d "$HOME/.local/bin" ];then
@@ -31,64 +26,52 @@ fi
 path[1,0]="$HOME/.local/bin"
 
 # pkgx installs
-if [ ! -x "$HOME/.local/bin/make" ];then
-  echo
-  _print_prog pkgx "installing gnu.org/make@latest"
-  pkgx install gnu.org/make@latest
-fi
+echo
+_print_prog pkgx "installing gnu.org/make@latest"
+pkgx install gnu.org/make@latest
 
-if [ ! -x "$HOME/.local/bin/java" ];then
-  echo
-  _print_prog pkgx "installing openjdk.org@latest"
-  pkgx install openjdk.org@latest
-fi
+echo
+_print_prog pkgx "installing openjdk.org@latest"
+pkgx install openjdk.org@latest
 
-if [ ! -x "$HOME/.local/bin/go" ];then
-  echo
-  _print_prog pkgx "installing go.dev@latest"
-  pkgx install go.dev@latest
-fi
+echo
+_print_prog pkgx "installing go.dev@latest"
+pkgx install go.dev@latest
 
-if [ ! -x "$HOME/.local/bin/node" ];then
-  echo
-  _print_prog pkgx "installing nodejs.org@latest"
-  pkgx install nodejs.org@latest
-  pkgx node -v
-fi
-if [ ! -x "$HOME/.local/bin/npm" ]; then
-  echo
-  _print_prog pkgx "installing npmjs.com@latest"
-  pkgx install npmjs.com@latest
-fi
-if [ ! -x "$HOME/.local/bin/pnpm" ]; then
-  echo
-  _print_prog pkgx "installing pnpm.io@latest"
-  pkgx install pnpm.io@latest
-fi
+echo
+_print_prog pkgx "installing nodejs.org@latest"
+pkgx install nodejs.org@latest
+pkgx node -v
 
+echo
+_print_prog pkgx "installing npmjs.com@latest"
+pkgx install npmjs.com@latest
+
+echo
+_print_prog pkgx "installing pnpm.io@latest"
+pkgx install pnpm.io@latest
+
+# We want our global ruby and rubygems to be the
+# latest, so uninstall any existing versions
 pkgx uninstall ruby-lang.org
 rm -rf "$HOME/.pkgx/ruby-lang.org"
-if [ ! -x "$HOME/.local/bin/ruby" ]; then
-  echo
-  _print_prog pkgx "installing ruby-lang.org@latest"
-  pkgx install ruby-lang.org@latest
-  pkgx ruby -v
-fi
-
 pkgx uninstall rubygems.org
 rm -rf "$HOME/.pkgx/rubygems.org"
-if [ ! -x "$HOME/.local/bin/bundle" ]; then
-  echo
-  if [ -f "/usr/local/bin/bundler" ]; then
-    sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundler
-  fi
-  if [ -f "/usr/local/bin/bundle" ]; then
-    sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundle
-  fi
-  rm -f "$HOME/.local/bin/gem" "$HOME/.local/bin/bundler"
-  _print_prog pkgx "installing rubygems.org@latest"
-  pkgx install rubygems.org@latest
+
+echo
+_print_prog pkgx "installing ruby-lang.org@latest"
+pkgx install ruby-lang.org@latest
+pkgx ruby -v
+
+echo
+if [ -f "/usr/local/bin/bundler" ]; then
+  sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundler
 fi
+if [ -f "/usr/local/bin/bundle" ]; then
+  sudo -p "OSX password for %p:" rm -f /usr/local/bin/bundle
+fi
+_print_prog pkgx "installing rubygems.org@latest"
+pkgx install rubygems.org@latest
 
 echo
 _print_ok
