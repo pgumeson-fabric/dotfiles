@@ -7,10 +7,6 @@ _print_running_script "$0"
 set -euo pipefail
 
 # kitty hooks
-if [ ! -f "{{ .chezmoi.homeDir }}/.config/kitty/overrides.conf" ]; then
-  _print_info "generating kitty overrides.conf"
-  echo "#: Override settings from kitty.conf here\n" > "{{ .chezmoi.homeDir }}/.config/kitty/overrides.conf"
-fi
 if [ ! -f "$HOME/.config/kitty/current-theme.conf" ]; then
   _print_info "copying default kitty theme to current-theme.conf"
   cp "{{ .chezmoi.homeDir }}/.config/kitty/themes/Dotfiles Default.conf" "{{ .chezmoi.homeDir }}/.config/kitty/current-theme.conf"

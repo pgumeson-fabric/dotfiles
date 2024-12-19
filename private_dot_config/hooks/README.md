@@ -6,6 +6,7 @@ These hooks are just local files in your home directory that live outside the ch
 
 * [.zlogin](#zlogin)
 * [starship.toml](#starshiptoml)
+* [.config/kitty/kitty.d](#configkittykittyd)
 * [.ssh/config.d](#sshconfigd)
 
 ### .zlogin
@@ -26,12 +27,13 @@ cp ~/.config/starship.toml ~/.config/hooks/starship.toml
 code ~/.config/hooks/starship.toml
 ```
 
-### kitty/overrides.conf
+### .config/kitty/kitty.d
 
-To customize your [kitty terminal](https://sw.kovidgoyal.net/kitty):cat:, you can override the default config by adding a `overrides.conf` to the `~/.config/kitty` dir and modifying it.
+To customize your [kitty terminal](https://sw.kovidgoyal.net/kitty):cat:, you can add additional `.conf` files to the `~.config/kitty/kitty.d` directory. These files will be included after the main `kitty.conf`, allowing you to override any [kitty config](https://sw.kovidgoyal.net/kitty/conf/#) you want.
 
 ```shell
-code ~/.config/kitty/overrides.conf
+touch ~/.config/kitty/kitty.d/overrides.conf
+code ~/.config/kitty/kitty.d/overrides.conf
 ```
 
 ### .ssh/config.d
@@ -42,11 +44,3 @@ To add additional SSH configs, simply add additional config files to the `~/.ssh
 touch ~/.ssh/config.d/config.local
 code ~/.ssh/config.d/config.local
 ```
-
-## Wishlist
-
-Here are some additional hooks that could be useful:
-
-* `after.gitconfig` hook
-* `config.vim` override and additional `plugins` hook
-* `kitty` terminal (or `iTerm`) customizations
