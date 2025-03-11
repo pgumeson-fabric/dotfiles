@@ -12,9 +12,13 @@ if [ -x /usr/local/bin/pkgx ]; then
 else
   _print_installing "pkgx"
 fi
-curl -fsS https://pkgx.sh | sh
+
+curl -LSsf https://github.com/pkgxdev/pkgx/releases/download/v1.5.0/pkgx-1.5.0+darwin+aarch64.tar.xz | sudo tar xz -C /usr/local/bin
 pkgx --sync
-pkgx unload
+
+echo
+_print_info "using $(pkgx --version)"
+# pkgx unload
 
 # Remove binstubs not installed by pkgx
 if [ -d "$HOME/.local/bin" ];then
@@ -62,6 +66,7 @@ echo
 _print_prog pkgx "installing ruby-lang.org@latest"
 pkgx install ruby-lang.org@latest
 pkgx ruby -v
+
 
 echo
 if [ -f "/usr/local/bin/bundler" ]; then
