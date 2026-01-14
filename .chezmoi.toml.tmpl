@@ -73,6 +73,14 @@
 {{-   $vim_mode = promptBool "Use VIM mode in vscode" $vim_mode -}}
 {{- end -}}
 
+{{- /* use_flutter */ -}}
+{{- $use_flutter := false -}}
+{{- if hasKey . "use_flutter" -}}
+{{-   $use_flutter = .use_flutter -}}
+{{- else if $interactive -}}
+{{-   $use_flutter = promptBool "Flutter dev environment" $use_flutter -}}
+{{- end -}}
+
 {{- /* homebrew_prefix */ -}}
 {{- $homebrew_prefix := "" -}}
 {{- if eq .chezmoi.os "linux" -}}
@@ -92,6 +100,7 @@
   github_user = "{{ $github_user }}"
   editor = "{{ $editor }}"
   visual = "{{ $visual }}"
+  use_flutter = "{{ $use_flutter }}"
   homebrew_prefix = "{{ $homebrew_prefix }}"
   [data.vscode]
     vim_mode = "{{ $vim_mode }}"
